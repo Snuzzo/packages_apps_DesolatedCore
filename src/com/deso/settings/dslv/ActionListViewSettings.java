@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.mrapocalypse.screwdshop.dslv;
+package com.deso.settings.dslv;
 
 import android.app.Activity;
 import android.app.AlertDialog;
