@@ -48,4 +48,20 @@
         android:title="@string/lockscreen_qs_disabled_title"
         android:summary="@string/lockscreen_qs_disabled_summary" />
 
+    <PreferenceScreen
+        android:key="lockscreen_shortcuts"
+        android:fragment="com.deso.settings.dslv.ActionListViewSettings"
+        android:summary="@string/lockscreen_shortcuts_summary"
+        android:title="@string/lockscreen_shortcuts_title">
+            <extra android:name="actionMode" android:value="4" />
+            <extra android:name="maxAllowedActions" android:value="5" />
+            <extra android:name="disableLongpress" android:value="true" />
+            <extra android:name="useAppPickerOnly" android:value="true" />
+    </PreferenceScreen>
+
+    <SwitchPreference
+        android:key="lockscreen_shortcuts_longpress"
+        android:title="@string/lockscreen_shorcuts_longpress_title"
+        android:summary="@string/lockscreen_shorcuts_longpress_summary" />
+
 </PreferenceScreen>
