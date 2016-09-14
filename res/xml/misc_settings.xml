@@ -48,4 +48,9 @@
         android:title="@string/screen_state_toggles_title" 
         android:fragment="com.deso.settings.fragments.ScreenStateToggles" />
 
+    <PreferenceScreen
+        android:key="animations_category"
+        android:title="@string/animations_title"
+        android:fragment="com.deso.settings.fragments.AnimationSettings" />
+
 </PreferenceScreen>
