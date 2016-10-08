@@ -129,4 +129,8 @@
      <string name="sysui_qqs_count_title">Small tiles number</string>
      <string name="qs_settings_title">QS Tiles</string>
 
+     <!-- Disable QS on secure Lockscreen -->
+     <string name="lockscreen_qs_disabled_title">No QS when secured</string>
+     <string name="lockscreen_qs_disabled_summary">Disable quick settings tiles on secured lockscreen</string>
+
 </resources>
