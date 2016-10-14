@@ -18,6 +18,11 @@
         xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
         android:title="@string/deso_settings_title" >
 
+    <PreferenceScreen
+            android:fragment="com.deso.settings.fragments.StatusBarSettings"
+            android:key="deso_statusbar_settings"
+            android:title="@string/statusbar_settings_title"/>
+
     <PreferenceCategory
         android:title="@string/led_notification_title"
         android:key="leds" >
@@ -31,6 +36,8 @@
                  android:key="notification_light"
                  android:fragment="com.deso.settings.batterylight.NotificationLightSettings"
                  android:title="@string/notification_light_settings" />
+
+    </PreferenceCategory>
 
     <PreferenceCategory
         android:key="deso_buttons"
