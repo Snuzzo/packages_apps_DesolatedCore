@@ -48,6 +48,7 @@ import com.deso.settings.fragments.LockscreenSettings;
 import com.deso.settings.fragments.PowerMenuSettings;
 import com.deso.settings.fragments.StatusBarSettings;
 import com.deso.settings.fragments.NavbarSettings;
+import com.deso.settings.fragments.NotificationDrawerSettings;
 import com.deso.settings.fragments.RecentsSettings;
 import com.deso.settings.fragments.QSSettings;
 import com.deso.settings.fragments.MiscSettings;
@@ -99,6 +100,7 @@ public class DesoSettings extends SettingsPreferenceFragment {
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
             frags.add((DesoSettingsFragment) new StatusBarSettings());
+            frags.add((DesoSettingsFragment) new NotificationDrawerSettings());
             if(DesoSettings.this.getResources().getBoolean(com.android.internal.R.bool.config_intrusiveBatteryLed) ||
                DesoSettings.this.getResources().getBoolean(com.android.internal.R.bool.config_intrusiveNotificationLed))
                frags.add((DesoSettingsFragment) new LedSettings());

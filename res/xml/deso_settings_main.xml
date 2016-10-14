@@ -19,6 +19,11 @@
         android:title="@string/deso_settings_title" >
 
     <PreferenceScreen
+            android:fragment="com.deso.settings.fragments.NotificationDrawerSettings"
+            android:key="cosmic_notification_drawer_settings"
+            android:title="@string/notification_drawer_settings_title"/>
+
+    <PreferenceScreen
             android:fragment="com.deso.settings.fragments.StatusBarSettings"
             android:key="deso_statusbar_settings"
             android:title="@string/statusbar_settings_title"/>
