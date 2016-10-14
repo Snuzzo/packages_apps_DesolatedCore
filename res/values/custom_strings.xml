@@ -137,4 +137,9 @@
      <string name="qs_advanced_data_title">Advanced data tile</string>
      <string name="qs_advanced_data_summary">Enable one tap action to enable or disable data</string>
 
+    <!-- Advanced tiles -->
+    <string name="qs_advanced_data_title">Data easy toggle</string>
+    <string name="qs_advanced_data_summary">Enable one tap action to enable or disable data</string>
+    <string name="qs_wifi_easy_toggle_title">WiFi easy toggle</string>
+    <string name="qs_wifi_easy_toggle_summary">Enable one tap action to enable or disable WiFi</string>
 </resources>
