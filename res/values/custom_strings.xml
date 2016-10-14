@@ -339,7 +339,9 @@
     <string name="lockscreen_qs_disabled_title">No QS when secured</string>
     <string name="lockscreen_qs_disabled_summary">Disable quick settings tiles on secured lockscreen</string>
 
-    <!-- Advanced data tile -->
-    <string name="qs_advanced_data_title">Advanced data tile</string>
+    <!-- Advanced tiles -->
+    <string name="qs_advanced_data_title">Data easy toggle</string>
     <string name="qs_advanced_data_summary">Enable one tap action to enable or disable data</string>
+    <string name="qs_wifi_easy_toggle_title">WiFi easy toggle</string>
+    <string name="qs_wifi_easy_toggle_summary">Enable one tap action to enable or disable WiFi</string>
 </resources>
