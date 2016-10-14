@@ -144,5 +144,8 @@
     <!-- Add application dialog box title -->
     <string name="profile_choose_app">Choose app</string>
     <string name="reset">Reset</string>
-
+    <!-- Categories -->
+    <string name="deso_buttons">Buttons</string>
+    <!-- Power Menu fragment -->
+    <string name="powermenu_settings_title">Power menu</string>
 </resources>

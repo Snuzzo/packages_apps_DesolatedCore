@@ -32,5 +32,15 @@
                  android:fragment="com.deso.settings.batterylight.NotificationLightSettings"
                  android:title="@string/notification_light_settings" />
 
+    <PreferenceCategory
+        android:key="deso_buttons"
+        android:title="@string/deso_buttons">
+
+        <PreferenceScreen
+            android:fragment="com.deso.settings.fragments.PowerMenuSettings"
+            android:key="deso_powermenu_settings"
+            android:title="@string/powermenu_settings_title"/>
+
     </PreferenceCategory>
+
 </PreferenceScreen>
