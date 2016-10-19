@@ -43,4 +43,9 @@
         android:summary="%s"
         android:title="@string/notification_mode_title" />
 
+     <PreferenceScreen
+        android:key="carrier_label_settings"
+        android:fragment="com.deso.settings.fragments.CarrierLabelSettings"
+        android:title="@string/carrier_label_settings_title" />
+
 </PreferenceScreen>
