@@ -112,4 +112,15 @@
         android:title="@string/lockscreen_shorcuts_longpress_title"
         android:summary="@string/lockscreen_shorcuts_longpress_summary" />
 
+    <PreferenceCategory
+        android:key="lockscreen_ui_music_category"
+        android:title="@string/music_category">
+
+    <com.android.settings.preference.SecureSettingSwitchPreference
+        android:key="lockscreen_visualizer"
+        android:title="@string/lockscreen_visualizer_title"
+        android:defaultValue="true"/>
+
+    </PreferenceCategory>
 </PreferenceScreen>
+

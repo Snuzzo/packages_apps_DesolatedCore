@@ -24,7 +24,8 @@
     <string name="qs_omnijaws_category">Weather QS tile</string>
     <string name="quicksettings_category">Quick settings</string>
     <string name="custom_header_cat">Header Image</string>  
-
+    <string name="music_category">Music</string>
+   
     <!-- QS easy toggles -->
     <string name="qs_easy_toggle_title">Advanced QS Easy Toggle</string>
     <string name="qs_easy_toggle_summary">Enable one tap action to enable/disable mobile data, wifi, location and bluetooth</string>
@@ -1008,6 +1009,9 @@
     <string name="recents_type_title">Recents Style</string>
     <string name="recents_stock">Cards</string>
     <string name="recents_grid">Grid</string>
+
+    <!-- lock screen visualizer -->
+    <string name="lockscreen_visualizer_title">Display music visualizer</string>
 
 </resources>
 
