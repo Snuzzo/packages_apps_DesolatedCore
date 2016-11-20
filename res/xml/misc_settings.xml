@@ -37,7 +37,6 @@
         android:title="@string/volume_steps_title"
         android:fragment="com.deso.settings.fragments.VolumeSteps" />
 
-
     <Preference
         android:key="wakelockblocker"
         android:fragment="com.deso.settings.fragments.WakelockBlocker"
@@ -52,5 +51,10 @@
         android:key="animations_category"
         android:title="@string/animations_title"
         android:fragment="com.deso.settings.fragments.AnimationSettings" />
+
+    <PreferenceScreen
+        android:key="blur_category"
+        android:title="@string/blur_settings"
+        android:fragment="com.deso.settings.fragments.BlurPersonalizations" />
 
 </PreferenceScreen>
