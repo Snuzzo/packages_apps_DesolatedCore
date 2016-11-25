@@ -83,6 +83,13 @@
         android:persistent="false"
         android:defaultValue="0xffffff" />
 
+    <com.deso.settings.preferences.SecureSettingSwitchPreference
+        android:key="force_charge_battery_text"
+        android:title="@string/force_charge_battery_text_title"
+        android:summaryOn="@string/force_charge_battery_text_summary_on"
+        android:summaryOff="@string/force_charge_battery_text_summary_off"
+        android:defaultValue="true" />
+
     <Preference
         android:key="deso_network_traffic_state"
         android:title="@string/network_traffic_title"

@@ -35,6 +35,7 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
     private static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style";
     private static final String STATUS_BAR_SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
     private static final String STATUS_BAR_CHARGE_COLOR = "status_bar_charge_color";
+    private static final String FORCE_CHARGE_BATTERY_TEXT = "force_charge_battery_text";
 
     private static final int STATUS_BAR_BATTERY_STYLE_PORTRAIT = 0;
 
@@ -47,6 +48,7 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
     private ListPreference mStatusBarBatteryShowPercent;
     private int mStatusBarBatteryValue;
     private int mStatusBarBatteryShowPercentValue;
+    private SwitchPreference mForceChargeBatteryText;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,11 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
         mNotificationMode.setValue(String.valueOf(notificationMode));
         mNotificationMode.setSummary(mNotificationMode.getEntry());
 
+        mForceChargeBatteryText = (SwitchPreference) findPreference(FORCE_CHARGE_BATTERY_TEXT);
+        mForceChargeBatteryText.setChecked((Settings.Secure.getInt(resolver,
+                Settings.Secure.FORCE_CHARGE_BATTERY_TEXT, 1) == 1));
+        mForceChargeBatteryText.setOnPreferenceChangeListener(this);
+
         mStatusBarBattery = (ListPreference) findPreference(STATUS_BAR_BATTERY_STYLE);
         mStatusBarBatteryValue = Settings.Secure.getInt(resolver,
                 Settings.Secure.STATUS_BAR_BATTERY_STYLE, 0);
@@ -96,7 +103,7 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
         mStatusBarBatteryShowPercent.setSummary(mStatusBarBatteryShowPercent.getEntry());
         mStatusBarBatteryShowPercent.setOnPreferenceChangeListener(this);
 
-        enableStatusBarBatteryDependents(mStatusBarBatteryValue);
+        enableStatusBarBatteryDependents(mStatusBarBatteryValue, mStatusBarBatteryShowPercentValue);
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -141,24 +148,33 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
                     mStatusBarBatteryShowPercent.getEntries()[index]);
             Settings.Secure.putInt(resolver,
                     Settings.Secure.STATUS_BAR_SHOW_BATTERY_PERCENT, mStatusBarBatteryShowPercentValue);
+        } else if  (preference == mForceChargeBatteryText) {
+            boolean checked = ((SwitchPreference)preference).isChecked();
+            Settings.Secure.putInt(resolver,
+                    Settings.Secure.FORCE_CHARGE_BATTERY_TEXT, checked ? 1:0);
         } else if (preference.equals(mChargeColor)) {
             int color = ((Integer) newValue).intValue();
             Settings.Secure.putInt(resolver,
                     Settings.Secure.STATUS_BAR_CHARGE_COLOR, color);
             return true;
         }
+        enableStatusBarBatteryDependents(mStatusBarBatteryValue, mStatusBarBatteryShowPercentValue);
 
         return true;
 
-    private void enableStatusBarBatteryDependents(int batteryIconStyle) {
+    private void enableStatusBarBatteryDependents(int batteryIconStyle, int showPercentMode) {
         if (batteryIconStyle == STATUS_BAR_BATTERY_STYLE_HIDDEN ||
             batteryIconStyle == STATUS_BAR_BATTERY_STYLE_TEXT) {
             mStatusBarBatteryShowPercent.setEnabled(false);
+            mForceChargeBatteryText.setEnabled(false);
             mChargeColor.setEnabled(false);
         } else if (batteryIconStyle == STATUS_BAR_BATTERY_STYLE_PORTRAIT) {
+            mStatusBarBatteryShowPercent.setEnabled(true);
             mChargeColor.setEnabled(true);
+            mForceChargeBatteryText.setEnabled(showPercentMode == 1 ? true : false);
         } else {
             mStatusBarBatteryShowPercent.setEnabled(true);
+            mForceChargeBatteryText.setEnabled(showPercentMode == 1 ? true : false);
             mChargeColor.setEnabled(true);
         }
     }
