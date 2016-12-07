@@ -228,4 +228,7 @@
     <string name="status_bar_brightness_control_summary">Swipe left/right on Status Bar to decrease/increase brightness</string>
     <string name="status_bar_deso_logo_title">Show Desolation Logo in Status Bar</string>
 
+    <!-- Volume Key Rotation -->
+    <string name="swap_volume_buttons_title">Reorient</string>
+    <string name="swap_volume_buttons_summary">Swap volume buttons when the screen is rotated</string>
 </resources>
