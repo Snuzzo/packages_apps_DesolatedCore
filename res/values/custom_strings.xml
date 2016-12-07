@@ -83,4 +83,7 @@
     <!-- Volume Rocker -->
     <string name="volume_rocker_settings_title">Volume Rocker</string>
 
+    <!-- Volume Key Rotation -->
+    <string name="swap_volume_buttons_title">Reorient</string>
+    <string name="swap_volume_buttons_summary">Swap volume buttons when the screen is rotated</string>
 </resources>
