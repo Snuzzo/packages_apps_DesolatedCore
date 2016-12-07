@@ -13,6 +13,8 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string name="qs_settings_title">QS Tiles</string>
+
     <!-- Navigation Bar -->
     <string name="navbar_interface_title">Interface</string>
     <string name="navbar_size">Bar size</string>
@@ -331,4 +333,5 @@
      <string name="powermenu_lockscreen_title">Power menu on lock screen</string>
      <string name="powermenu_lockscreen_summary">Show power menu on the lock screen</string>
 
+    <string name="sysui_qqs_count_title">Small tiles number</string>
 </resources>
