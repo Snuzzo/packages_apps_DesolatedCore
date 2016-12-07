@@ -32,4 +32,9 @@
         android:entries="@array/entries_scrollingcache"
         android:entryValues="@array/values_scrollingcache" />
 
+    <PreferenceScreen
+        android:key="volume_steps"
+        android:title="@string/volume_steps_title"
+        android:fragment="com.deso.settings.fragments.VolumeSteps" />
+
 </PreferenceScreen>
