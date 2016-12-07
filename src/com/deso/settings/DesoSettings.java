@@ -49,7 +49,7 @@ import com.deso.settings.fragments.PowerMenuSettings;
 import com.deso.settings.fragments.StatusBarSettings;
 import com.deso.settings.fragments.NavbarSettings;
 import com.deso.settings.fragments.RecentsSettings;
-//import com.deso.settings.fragments.QSSettings;
+import com.deso.settings.fragments.QSSettings;
 import com.deso.settings.fragments.VolumeRockerSettings;
 import com.deso.settings.fragments.MiscSettings;
 //import com.deso.settings.fragments.AboutDeso;
@@ -107,7 +107,7 @@ public class DesoSettings extends SettingsPreferenceFragment {
             frags.add((DesoSettingsFragment) new LockscreenSettings());
             frags.add((DesoSettingsFragment) new NavbarSettings());
             frags.add((DesoSettingsFragment) new RecentsSettings());
-            //frags.add((DesoSettingsFragment) new QSSettings());
+            frags.add((DesoSettingsFragment) new QSSettings());
             frags.add((DesoSettingsFragment) new VolumeRockerSettings());
             frags.add((DesoSettingsFragment) new MiscSettings());
             //frags.add((DesoSettingsFragment) new AboutDeso());
