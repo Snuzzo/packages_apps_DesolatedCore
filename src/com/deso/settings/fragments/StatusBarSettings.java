@@ -48,9 +48,9 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
     private static final String PREF_CATEGORY_INDICATORS = "pref_cat_icons";
     private static final String WEATHER_SERVICE_PACKAGE = "org.omnirom.omnijaws";
     private static final String PREF_HEADS_UP_TIME_OUT = "heads_up_time_out";
+    private static final String PREF_HEADS_UP_SNOOZE_TIME = "heads_up_snooze_time";
 
     private static final int STATUS_BAR_BATTERY_STYLE_PORTRAIT = 0;
-
     private static final int STATUS_BAR_BATTERY_STYLE_HIDDEN = 4;
     private static final int STATUS_BAR_BATTERY_STYLE_TEXT = 6;
 
@@ -65,6 +65,7 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
     private int mTextChargingSymbolValue;
     private ListPreference mStatusBarWeather;
     private ListPreference mHeadsUpTimeOut;
+    private ListPreference mHeadsUpSnoozeTime;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -163,6 +164,17 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
                 Settings.System.HEADS_UP_TIMEOUT, defaultTimeOut);
         mHeadsUpTimeOut.setValue(String.valueOf(headsUpTimeOut));
         updateHeadsUpTimeOutSummary(headsUpTimeOut);
+
+        int defaultSnooze = systemUiResources.getInteger(systemUiResources.getIdentifier(
+                    "com.android.systemui:integer/heads_up_default_snooze_length_ms", null, null));
+        mHeadsUpSnoozeTime = (ListPreference) findPreference(PREF_HEADS_UP_SNOOZE_TIME);
+        mHeadsUpSnoozeTime.setOnPreferenceChangeListener(this);
+        int headsUpSnooze = Settings.System.getInt(getContentResolver(),
+                Settings.System.HEADS_UP_NOTIFICATION_SNOOZE, defaultSnooze);
+        mHeadsUpSnoozeTime.setValue(String.valueOf(headsUpSnooze));
+        updateHeadsUpSnoozeTimeSummary(headsUpSnooze);
+
+        updateHeadsUpPref(headsupMode);
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -190,6 +202,7 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
             int index = mNotificationMode.findIndexOfValue((String) newValue);
             mNotificationMode.setSummary(
                     mNotificationMode.getEntries()[index]);
+            updateHeadsUpPref(headsupMode);
             return true;
        } else if (preference.equals(mStatusBarBattery)) {
             mStatusBarBatteryValue = Integer.valueOf((String) newValue);
@@ -247,8 +260,15 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
                     headsUpTimeOut);
             updateHeadsUpTimeOutSummary(headsUpTimeOut);
             return true;
-        }
-        return false;
+       } else if (preference == mHeadsUpSnoozeTime) {
+            int headsUpSnooze = Integer.valueOf((String) newValue);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.HEADS_UP_NOTIFICATION_SNOOZE,
+                    headsUpSnooze);
+            updateHeadsUpSnoozeTimeSummary(headsUpSnooze);
+            return true;
+       }
+       return false;
     }
 
     private void updateHeadsUpTimeOutSummary(int value) {
@@ -257,11 +277,26 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
         mHeadsUpTimeOut.setSummary(summary);
     }
 
-/*    private void updateHeadsUpPref(int value) {
+    private void updateHeadsUpSnoozeTimeSummary(int value) {
+        if (value == 0) {
+            mHeadsUpSnoozeTime.setSummary(getResources().getString(R.string.heads_up_snooze_disabled_summary));
+        } else if (value == 60000) {
+            mHeadsUpSnoozeTime.setSummary(getResources().getString(R.string.heads_up_snooze_summary_one_minute));
+        } else {
+            String summary = getResources().getString(R.string.heads_up_snooze_summary, value / 60 / 1000);
+            mHeadsUpSnoozeTime.setSummary(summary);
+        }
+    }
+
+    private void updateHeadsUpPref(int value) {
         if (value == 0) {
             mHeadsUpTimeOut.setEnabled(false);
+            mHeadsUpSnoozeTime.setEnabled(false);
+        } else {
+            mHeadsUpTimeOut.setEnabled(true);
+            mHeadsUpSnoozeTime.setEnabled(true);
         }
-    }*/
+    }
 
     private void enableStatusBarBatteryDependents() {
         if (mStatusBarBatteryValue == STATUS_BAR_BATTERY_STYLE_HIDDEN) {
