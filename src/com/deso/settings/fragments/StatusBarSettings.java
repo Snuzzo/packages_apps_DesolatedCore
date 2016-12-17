@@ -16,6 +16,7 @@
 
 package com.deso.settings.fragments;
 
+import android.content.res.Resources;
 import android.content.ContentResolver;
 import android.os.Bundle;
 import android.os.UserHandle;
@@ -46,6 +47,7 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
     private static final String PREF_STATUS_BAR_WEATHER = "status_bar_weather";
     private static final String PREF_CATEGORY_INDICATORS = "pref_cat_icons";
     private static final String WEATHER_SERVICE_PACKAGE = "org.omnirom.omnijaws";
+    private static final String PREF_HEADS_UP_TIME_OUT = "heads_up_time_out";
 
     private static final int STATUS_BAR_BATTERY_STYLE_PORTRAIT = 0;
 
@@ -62,6 +64,7 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
     private ListPreference mTextChargingSymbol;
     private int mTextChargingSymbolValue;
     private ListPreference mStatusBarWeather;
+    private ListPreference mHeadsUpTimeOut;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,14 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
         ContentResolver resolver = getActivity().getContentResolver();
         title = getResources().getString(R.string.statusbar_settings_title);
         addPreferencesFromResource(R.xml.statusbar_settings);
+        Resources systemUiResources;
+
+        try {
+            systemUiResources = getPackageManager().getResourcesForApplication("com.android.systemui");
+        } catch (Exception e) {
+            return;
+        }
+
         final PreferenceScreen prefScreen = getPreferenceScreen();
 
         PreferenceCategory categoryIndicators = (PreferenceCategory) getPreferenceScreen().findPreference(PREF_CATEGORY_INDICATORS);
@@ -143,6 +154,15 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
             }
             mStatusBarWeather.setOnPreferenceChangeListener(this);
         }
+
+        int defaultTimeOut = systemUiResources.getInteger(systemUiResources.getIdentifier(
+                    "com.android.systemui:integer/heads_up_notification_decay", null, null));
+        mHeadsUpTimeOut = (ListPreference) findPreference(PREF_HEADS_UP_TIME_OUT);
+        mHeadsUpTimeOut.setOnPreferenceChangeListener(this);
+        int headsUpTimeOut = Settings.System.getInt(getContentResolver(),
+                Settings.System.HEADS_UP_TIMEOUT, defaultTimeOut);
+        mHeadsUpTimeOut.setValue(String.valueOf(headsUpTimeOut));
+        updateHeadsUpTimeOutSummary(headsUpTimeOut);
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -220,9 +240,28 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
                 mStatusBarWeather.getEntries()[index]);
             }
             return true;
+       } else if (preference == mHeadsUpTimeOut) {
+            int headsUpTimeOut = Integer.valueOf((String) newValue);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.HEADS_UP_TIMEOUT,
+                    headsUpTimeOut);
+            updateHeadsUpTimeOutSummary(headsUpTimeOut);
+            return true;
         }
         return false;
     }
+
+    private void updateHeadsUpTimeOutSummary(int value) {
+        String summary = getResources().getString(R.string.heads_up_time_out_summary,
+                value / 1000);
+        mHeadsUpTimeOut.setSummary(summary);
+    }
+
+/*    private void updateHeadsUpPref(int value) {
+        if (value == 0) {
+            mHeadsUpTimeOut.setEnabled(false);
+        }
+    }*/
 
     private void enableStatusBarBatteryDependents() {
         if (mStatusBarBatteryValue == STATUS_BAR_BATTERY_STYLE_HIDDEN) {

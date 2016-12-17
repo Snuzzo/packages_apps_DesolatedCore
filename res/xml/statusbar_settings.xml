@@ -44,6 +44,13 @@
         android:summary="%s"
         android:title="@string/notification_mode_title" />
 
+    <ListPreference
+        android:key="heads_up_time_out"
+        android:title="@string/heads_up_time_out_title"
+        android:entries="@array/heads_up_time_out_entries"
+        android:entryValues="@array/heads_up_time_out_values"
+        android:persistent="false" />
+
      <PreferenceScreen
         android:key="carrier_label_settings"
         android:fragment="com.deso.settings.fragments.CarrierLabelSettings"
