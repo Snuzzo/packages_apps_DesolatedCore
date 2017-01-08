@@ -47,10 +47,15 @@ public class QSSettings extends DesoSettingsFragment implements
     private static final String DEFAULT_WEATHER_ICON_PACKAGE = "org.omnirom.omnijaws";
     private static final String WEATHER_SERVICE_PACKAGE = "org.omnirom.omnijaws";
     private static final String CHRONUS_ICON_PACK_INTENT = "com.dvtonder.chronus.ICON_PACK";
+    private static final String DAYLIGHT_HEADER_PACK = "daylight_header_pack";
+    private static final String DEFAULT_HEADER_PACKAGE = "com.android.systemui";
+    private static final String CUSTOM_HEADER_IMAGE_SHADOW = "status_bar_custom_header_shadow";
 
     private CustomSeekBarPreference mSysuiQqsCount;
     private ListPreference mWeatherIconPack;
     private PreferenceCategory mWeatherCategory;
+    private ListPreference mDaylightHeaderPack;
+    private CustomSeekBarPreference mHeaderShadow;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +68,38 @@ public class QSSettings extends DesoSettingsFragment implements
                 Settings.Secure.QQS_COUNT, 5);
         mSysuiQqsCount.setValue(SysuiQqsCount / 1);
         mSysuiQqsCount.setOnPreferenceChangeListener(this);
+
+        String settingHeaderPackage = Settings.System.getString(getContentResolver(),
+                Settings.System.STATUS_BAR_DAYLIGHT_HEADER_PACK);
+        if (settingHeaderPackage == null) {
+            settingHeaderPackage = DEFAULT_HEADER_PACKAGE;
+        }
+        mDaylightHeaderPack = (ListPreference) findPreference(DAYLIGHT_HEADER_PACK);
+
+        List<String> entries = new ArrayList<String>();
+        List<String> values = new ArrayList<String>();
+        getAvailableHeaderPacks(entries, values);
+        mDaylightHeaderPack.setEntries(entries.toArray(new String[entries.size()]));
+        mDaylightHeaderPack.setEntryValues(values.toArray(new String[values.size()]));
+
+        int valueIndex = mDaylightHeaderPack.findIndexOfValue(settingHeaderPackage);
+        if (valueIndex == -1) {
+            // no longer found
+            settingHeaderPackage = DEFAULT_HEADER_PACKAGE;
+            Settings.System.putString(getContentResolver(),
+                    Settings.System.STATUS_BAR_DAYLIGHT_HEADER_PACK, settingHeaderPackage);
+            valueIndex = mDaylightHeaderPack.findIndexOfValue(settingHeaderPackage);
+        }
+        mDaylightHeaderPack.setValueIndex(valueIndex >= 0 ? valueIndex : 0);
+        mDaylightHeaderPack.setSummary(mDaylightHeaderPack.getEntry());
+        mDaylightHeaderPack.setOnPreferenceChangeListener(this);
+
+        // header image shadows
+        mHeaderShadow = (CustomSeekBarPreference) findPreference(CUSTOM_HEADER_IMAGE_SHADOW);
+        final int headerShadow = Settings.System.getInt(getContentResolver(),
+                Settings.System.STATUS_BAR_CUSTOM_HEADER_SHADOW, 80);
+        mHeaderShadow.setValue(headerShadow);
+        mHeaderShadow.setOnPreferenceChangeListener(this);
 
         mWeatherCategory = (PreferenceCategory) findPreference(CATEGORY_WEATHER);
         if (mWeatherCategory != null && !isOmniJawsServiceInstalled()) {
@@ -100,13 +137,25 @@ public class QSSettings extends DesoSettingsFragment implements
             Settings.Secure.putInt(getActivity().getContentResolver(),
                     Settings.Secure.QQS_COUNT, SysuiQqsCount * 1);
             return true;
+        } else if (preference == mDaylightHeaderPack) {
+            String value = (String) objValue;
+            Settings.System.putString(getContentResolver(),
+                    Settings.System.STATUS_BAR_DAYLIGHT_HEADER_PACK, value);
+            int valueIndex = mDaylightHeaderPack.findIndexOfValue(value);
+            mDaylightHeaderPack.setSummary(mDaylightHeaderPack.getEntries()[valueIndex]);
+            return true;
+         } else if (preference == mHeaderShadow) {
+            Integer headerShadow = (Integer) objValue;
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.STATUS_BAR_CUSTOM_HEADER_SHADOW, headerShadow);
+            return true;
         } else if (preference == mWeatherIconPack) {
             String value = (String) newValue;
             Settings.System.putString(getContentResolver(),
                     Settings.System.OMNIJAWS_WEATHER_ICON_PACK, value);
             int valueIndex = mWeatherIconPack.findIndexOfValue(value);
             mWeatherIconPack.setSummary(mWeatherIconPack.getEntries()[valueIndex]);
-            return true; 
+            return true;
         }
         return false;
     }
@@ -144,6 +193,40 @@ public class QSSettings extends DesoSettingsFragment implements
             String label = r.activityInfo.loadLabel(getPackageManager()).toString();
             if (label == null) {
                 label = r.activityInfo.packageName;
+            }
+            entries.add(label);
+        }
+    }
+
+    private void getAvailableHeaderPacks(List<String> entries, List<String> values) {
+        Intent i = new Intent();
+        PackageManager packageManager = getPackageManager();
+        i.setAction("org.omnirom.DaylightHeaderPack");
+        for (ResolveInfo r : packageManager.queryIntentActivities(i, 0)) {
+            String packageName = r.activityInfo.packageName;
+            if (packageName.equals(DEFAULT_HEADER_PACKAGE)) {
+                values.add(0, packageName);
+            } else {
+                values.add(packageName);
+            }
+            String label = r.activityInfo.loadLabel(getPackageManager()).toString();
+            if (label == null) {
+                label = r.activityInfo.packageName;
+            }
+            if (packageName.equals(DEFAULT_HEADER_PACKAGE)) {
+                entries.add(0, label);
+            } else {
+                entries.add(label);
+            }
+        }
+        i.setAction("org.omnirom.DaylightHeaderPack1");
+        for (ResolveInfo r : packageManager.queryIntentActivities(i, 0)) {
+            String packageName = r.activityInfo.packageName;
+            values.add(packageName  + "/" + r.activityInfo.name);
+
+            String label = r.activityInfo.loadLabel(getPackageManager()).toString();
+            if (label == null) {
+                label = packageName;
             }
             entries.add(label);
         }
