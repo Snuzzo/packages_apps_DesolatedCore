@@ -43,5 +43,9 @@
         android:fragment="com.deso.settings.fragments.WakelockBlocker"
         android:title="@string/wakelockblocker_category" />
 
+    <PreferenceScreen
+        android:key="screenstate_category"
+        android:title="@string/screen_state_toggles_title" 
+        android:fragment="com.deso.settings.fragments.ScreenStateToggles" />
 
 </PreferenceScreen>
