@@ -44,13 +44,17 @@
         android:entryValues="@array/smartbar_button_animation_values"
         android:summary="@string/smartbar_button_animation_summary" />
 
-    <com.dirtyunicorns.dutweaks.preference.CustomSeekBarPreference
+    <com.abc.settings.preferences.CustomSeekBarPreference
         android:key="navbar_buttons_alpha"
         android:title="@string/navbar_buttons_alpha_title"
-        settings:max="255"
+        android:max="255"
         settings:min="0"
         settings:units=""
         android:persistent="false" />
 
-
+    <com.abc.settings.preferences.SystemSettingSwitchPreference
+        android:key="smartbar_doubletap_sleep"
+        android:title="@string/smartbar_doubletap_sleep_title"
+        android:summary="@string/smartbar_doubletap_sleep_summary"
+        android:defaultValue="true" />
 </PreferenceScreen>
