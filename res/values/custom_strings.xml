@@ -17,6 +17,10 @@
 
     <string name="qs_settings_title">QS Tiles</string>
 
+    <!-- QS easy toggles -->
+    <string name="qs_easy_toggle_title">Advanced QS Easy Toggle</string>
+    <string name="qs_easy_toggle_summary">Enable one tap action to enable or disable mobile data, Wi-Fi, and Bluetooth</string>
+
     <!-- Navigation Bar -->
     <string name="navbar_interface_title">Interface</string>
     <string name="navbar_size">Bar size</string>
