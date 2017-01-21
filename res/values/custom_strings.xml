@@ -144,4 +144,9 @@
     <string name="qs_wifi_easy_toggle_summary">Enable one tap action to enable or disable WiFi</string>
     <string name="qs_bt_easy_toggle_title">Bluetooth easy toggle</string>
     <string name="qs_bt_easy_toggle_summary">Enable one tap action to enable or disable Bluetooth</string>
+
+    <!-- QS easy toggles -->
+    <string name="qs_easy_toggle_title">Advanced QS Easy Toggle</string>
+    <string name="qs_easy_toggle_summary">Enable one tap action to enable/disable mobile data, wifi, location and bluetooth</string>
+
 </resources>
