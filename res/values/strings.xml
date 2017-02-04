@@ -876,6 +876,8 @@
     <!-- Extended statusbar icons -->
     <string name="qs_settings_icon_title">Hide settings shortcut</string>
     <string name="qs_settings_icon_summary">Remove the settings shortcut in the extended statusbar</string>
+    <string name="qs_running_services_title">Running Services Icon</string>
+    <string name="qs_running_services_summary">Disable the tile running services icon in the header</string>
     <string name="qs_edit_title">Hide edit shortcut</string>
     <string name="qs_edit_summary">Remove the edit shortcut in the extended statusbar</string>
     <string name="qs_multiuser_switch_title">Hide multi-user shortcut</string>
