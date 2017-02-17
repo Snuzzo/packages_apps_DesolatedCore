@@ -50,6 +50,8 @@ public class ButtonSettings extends ActionFragment implements OnPreferenceChange
     private static final String SWAP_VOLUME_BUTTONS = "swap_volume_buttons";
     private static final String VOLUME_ROCKER_WAKE = "volume_rocker_wake";
     public static final String VOLUME_ROCKER_MUSIC_CONTROLS = "volume_rocker_music_controls";
+    private static final String WIRED_RINGTONE_FOCUS_MODE = "wired_ringtone_focus_mode";
+
 
     // category keys
     private static final String CATEGORY_HWKEY = "hardware_keys";
@@ -71,6 +73,7 @@ public class ButtonSettings extends ActionFragment implements OnPreferenceChange
     public static final int KEY_MASK_CAMERA = 0x20;
     public static final int KEY_MASK_VOLUME = 0x40;
 
+    private ListPreference mWiredHeadsetRingtoneFocus;
     private SwitchPreference mSwapVolumeButtons;
     private SwitchPreference mVolumeRockerWake;
     private SwitchPreference mVolumeRockerMusicControl;
@@ -82,6 +85,7 @@ public class ButtonSettings extends ActionFragment implements OnPreferenceChange
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.button_settings);
+        ContentResolver resolver = getActivity().getContentResolver();
 
         final PreferenceScreen prefScreen = getPreferenceScreen();
 
@@ -175,21 +179,28 @@ public class ButtonSettings extends ActionFragment implements OnPreferenceChange
 
         mSwapVolumeButtons = (SwitchPreference) findPreference(SWAP_VOLUME_BUTTONS);
         mSwapVolumeButtons.setOnPreferenceChangeListener(this);
-        int swapVolumeButtons = Settings.System.getInt(getContentResolver(),
-                SWAP_VOLUME_BUTTONS, 0);
+        int swapVolumeButtons = Settings.System.getIntForUser(resolver,
+                SWAP_VOLUME_BUTTONS, 0, UserHandle.USER_CURRENT);
         mSwapVolumeButtons.setChecked(swapVolumeButtons != 0);
 
         mVolumeRockerWake = (SwitchPreference) findPreference(VOLUME_ROCKER_WAKE);
         mVolumeRockerWake.setOnPreferenceChangeListener(this);
-        int volumeRockerWake = Settings.System.getInt(getContentResolver(),
-                VOLUME_ROCKER_WAKE, 0);
+        int volumeRockerWake = Settings.System.getIntForUser(resolver,
+                VOLUME_ROCKER_WAKE, 0, UserHandle.USER_CURRENT);
         mVolumeRockerWake.setChecked(volumeRockerWake != 0);
 
         mVolumeRockerMusicControl = (SwitchPreference) findPreference(VOLUME_ROCKER_MUSIC_CONTROLS);
         mVolumeRockerMusicControl.setOnPreferenceChangeListener(this);
-        int volumeRockerMusicControl = Settings.System.getInt(getContentResolver(),
-                VOLUME_ROCKER_MUSIC_CONTROLS, 0);
+        int volumeRockerMusicControl = Settings.System.getIntForUser(resolver,
+                VOLUME_ROCKER_MUSIC_CONTROLS, 0, UserHandle.USER_CURRENT);
         mVolumeRockerMusicControl.setChecked(volumeRockerMusicControl != 0);
+
+        mWiredHeadsetRingtoneFocus = (ListPreference) findPreference(WIRED_RINGTONE_FOCUS_MODE);
+        int mWiredHeadsetRingtoneFocusValue = Settings.Global.getInt(resolver,
+                Settings.Global.WIRED_RINGTONE_FOCUS_MODE, 1);
+        mWiredHeadsetRingtoneFocus.setValue(Integer.toString(mWiredHeadsetRingtoneFocusValue));
+        mWiredHeadsetRingtoneFocus.setSummary(mWiredHeadsetRingtoneFocus.getEntry());
+        mWiredHeadsetRingtoneFocus.setOnPreferenceChangeListener(this);
 
         // let super know we can load ActionPreferences
         onPreferenceScreenLoaded(ActionConstants.getDefaults(ActionConstants.HWKEYS));
@@ -210,20 +221,30 @@ public class ButtonSettings extends ActionFragment implements OnPreferenceChange
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+        ContentResolver resolver = getActivity().getContentResolver();
+
         if (preference == mSwapVolumeButtons) {
             boolean value = (Boolean) newValue;
-            Settings.System.putInt(getContentResolver(), SWAP_VOLUME_BUTTONS,
-                    value ? 1 : 0);
+            Settings.System.putIntForUser(resolver, SWAP_VOLUME_BUTTONS,
+                    value ? 1 : 0, UserHandle.USER_CURRENT);
             return true;
         } else if (preference == mVolumeRockerWake) {
             boolean value = (Boolean) newValue;
-            Settings.System.putInt(getContentResolver(), VOLUME_ROCKER_WAKE,
-                    value ? 1 : 0);
+            Settings.System.putIntForUser(resolver, VOLUME_ROCKER_WAKE,
+                    value ? 1 : 0, UserHandle.USER_CURRENT);
             return true;
         } else if (preference == mVolumeRockerMusicControl) {
             boolean value = (Boolean) newValue;
-            Settings.System.putInt(getContentResolver(), VOLUME_ROCKER_MUSIC_CONTROLS,
-                    value ? 1 : 0);
+            Settings.System.putInt(resolver, VOLUME_ROCKER_MUSIC_CONTROLS,
+                    value ? 1 : 0, UserHandle.USER_CURRENT);
+            return true;
+        } else if (preference == mWiredHeadsetRingtoneFocus) {
+            int mWiredHeadsetRingtoneFocusValue = Integer.valueOf((String) newValue);
+            int index = mWiredHeadsetRingtoneFocus.findIndexOfValue((String) newValue);
+            mWiredHeadsetRingtoneFocus.setSummary(
+                    mWiredHeadsetRingtoneFocus.getEntries()[index]);
+            Settings.Global.putInt(resolver, Settings.Global.WIRED_RINGTONE_FOCUS_MODE,
+                    mWiredHeadsetRingtoneFocusValue);
             return true;
         } else if (preference == mHwKeyDisable) {
             boolean value = (Boolean) newValue;
