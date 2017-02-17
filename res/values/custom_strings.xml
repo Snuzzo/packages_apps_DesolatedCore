@@ -115,4 +115,10 @@
     <!-- Media art -->
     <string name="media_art_title">Media cover art</string>
     <string name="media_art_summary">Enable media cover art on the lockscreen</string>
+
+    <!-- Wired headset ringtone audio focus -->
+    <string name="wired_ringtone_focus_mode_title">Where to play ringtones from</string>
+    <string name="wired_ringtone_focus_mode_dynamic">Wired headset if connected and playing music</string>
+    <string name="wired_ringtone_focus_mode_stock">Speakerphone (default)</string>
+
 </resources>
