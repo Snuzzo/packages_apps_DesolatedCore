@@ -21,6 +21,8 @@
 
     <!-- Categories -->
     <string name="button_settings">Buttons</string>
+    <string name="qs_omnijaws_category">Weather QS tile</string>
+    <string name="quicksettings_category">Quick settings</string>
 
     <!-- QS easy toggles -->
     <string name="qs_easy_toggle_title">Advanced QS Easy Toggle</string>
@@ -391,5 +393,12 @@
     <string name="wakelock_blocker_reload">Reload</string>
     <string name="wakelock_blocker_warning_title">Proceed with caution</string>
     <string name="wakelock_blocker_warning">Blocking wakelocks have the potential to cause instability, crashes or data loss</string>
+
+    <!-- OmniJaws -->
+    <string name="weather_config_title">Weather settings</string>
+    <string name="weather_config_summary"></string>
+    <string name="header_weather_title">Header view weather</string>
+    <string name="header_weather_summary">Enable notification panel header weather display</string>
+    <string name="weather_icon_pack_title">Condition icon pack</string>
 
 </resources>
