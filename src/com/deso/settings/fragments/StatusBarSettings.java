@@ -42,6 +42,7 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
     private static final String STATUS_BAR_CHARGE_COLOR = "status_bar_charge_color";
     private static final String FORCE_CHARGE_BATTERY_TEXT = "force_charge_battery_text";
     private static final String TEXT_CHARGING_SYMBOL = "text_charging_symbol";
+    private static final String PREF_STATUS_BAR_WEATHER = "status_bar_weather";
 
     private static final int STATUS_BAR_BATTERY_STYLE_PORTRAIT = 0;
 
@@ -57,6 +58,7 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
     private SwitchPreference mForceChargeBatteryText;
     private ListPreference mTextChargingSymbol;
     private int mTextChargingSymbolValue;
+    private ListPreference mStatusBarWeather;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -119,6 +121,19 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
         mTextChargingSymbol.setOnPreferenceChangeListener(this);
 
         enableStatusBarBatteryDependents();
+
+       // Status bar weather
+       mStatusBarWeather = (ListPreference) findPreference(PREF_STATUS_BAR_WEATHER);
+       int temperatureShow = Settings.System.getIntForUser(resolver,
+               Settings.System.STATUS_BAR_SHOW_WEATHER_TEMP, 0,
+               UserHandle.USER_CURRENT);
+       mStatusBarWeather.setValue(String.valueOf(temperatureShow));
+       if (temperatureShow == 0) {
+           mStatusBarWeather.setSummary(R.string.statusbar_weather_summary);
+       } else {
+           mStatusBarWeather.setSummary(mStatusBarWeather.getEntry());
+       }
+          mStatusBarWeather.setOnPreferenceChangeListener(this);
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -182,6 +197,19 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
                     mTextChargingSymbol.getEntries()[index]);
             Settings.Secure.putInt(getContentResolver(),
                     Settings.Secure.TEXT_CHARGING_SYMBOL, mTextChargingSymbolValue);
+            return true;
+       } else if (preference == mStatusBarWeather) {
+            int temperatureShow = Integer.valueOf((String) newValue);
+            int index = mStatusBarWeather.findIndexOfValue((String) newValue);
+            Settings.System.putIntForUser(resolver,
+                   Settings.System.STATUS_BAR_SHOW_WEATHER_TEMP,
+                   temperatureShow, UserHandle.USER_CURRENT);
+            if (temperatureShow == 0) {
+                mStatusBarWeather.setSummary(R.string.statusbar_weather_summary);
+            } else {
+                mStatusBarWeather.setSummary(
+                mStatusBarWeather.getEntries()[index]);
+            }
             return true;
         }
         return false;
