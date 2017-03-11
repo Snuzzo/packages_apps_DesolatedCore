@@ -24,4 +24,17 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+
+     <!-- Notification mode -->
+    <string-array name="notification_mode_entries">
+        <item>@string/headsup_enabled</item>
+        <item>@string/ticker_enabled</item>
+        <item>@string/headsup_ticker_disabled</item>
+    </string-array>
+
+    <string-array name="notification_mode_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>
