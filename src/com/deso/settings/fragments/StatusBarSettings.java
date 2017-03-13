@@ -29,6 +29,7 @@ import android.support.v7.preference.PreferenceCategory;
 import android.support.v14.preference.PreferenceFragment;
 import android.support.v14.preference.SwitchPreference;
 import android.provider.SearchIndexableResource;
+import com.android.internal.util.tesla.TeslaUtils;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
@@ -43,6 +44,8 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
     private static final String FORCE_CHARGE_BATTERY_TEXT = "force_charge_battery_text";
     private static final String TEXT_CHARGING_SYMBOL = "text_charging_symbol";
     private static final String PREF_STATUS_BAR_WEATHER = "status_bar_weather";
+    private static final String PREF_CATEGORY_INDICATORS = "pref_cat_icons";
+    private static final String WEATHER_SERVICE_PACKAGE = "org.omnirom.omnijaws";
 
     private static final int STATUS_BAR_BATTERY_STYLE_PORTRAIT = 0;
 
@@ -67,6 +70,8 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
         title = getResources().getString(R.string.statusbar_settings_title);
         addPreferencesFromResource(R.xml.statusbar_settings);
         final PreferenceScreen prefScreen = getPreferenceScreen();
+
+        PreferenceCategory categoryIndicators = (PreferenceCategory) getPreferenceScreen().findPreference(PREF_CATEGORY_INDICATORS);
 
         mNotificationMode = (ListPreference) findPreference(NOTIFICATION_MODE);
         mNotificationMode.setOnPreferenceChangeListener(this);
@@ -122,18 +127,22 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
 
         enableStatusBarBatteryDependents();
 
-       // Status bar weather
-       mStatusBarWeather = (ListPreference) findPreference(PREF_STATUS_BAR_WEATHER);
-       int temperatureShow = Settings.System.getIntForUser(resolver,
-               Settings.System.STATUS_BAR_SHOW_WEATHER_TEMP, 0,
-               UserHandle.USER_CURRENT);
-       mStatusBarWeather.setValue(String.valueOf(temperatureShow));
-       if (temperatureShow == 0) {
-           mStatusBarWeather.setSummary(R.string.statusbar_weather_summary);
-       } else {
-           mStatusBarWeather.setSummary(mStatusBarWeather.getEntry());
-       }
-          mStatusBarWeather.setOnPreferenceChangeListener(this);
+        // Status bar weather
+        mStatusBarWeather = (ListPreference) getPreferenceScreen().findPreference(PREF_STATUS_BAR_WEATHER);
+        if (mStatusBarWeather != null && (!TeslaUtils.isPackageInstalled(getActivity(),WEATHER_SERVICE_PACKAGE))) {
+            categoryIndicators.removePreference(mStatusBarWeather);
+        } else {
+            int temperatureShow = Settings.System.getIntForUser(resolver,
+                Settings.System.STATUS_BAR_SHOW_WEATHER_TEMP, 0,
+                UserHandle.USER_CURRENT);
+            mStatusBarWeather.setValue(String.valueOf(temperatureShow));
+            if (temperatureShow == 0) {
+                mStatusBarWeather.setSummary(R.string.statusbar_weather_summary);
+            } else {
+                mStatusBarWeather.setSummary(mStatusBarWeather.getEntry());
+            }
+            mStatusBarWeather.setOnPreferenceChangeListener(this);
+        }
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -201,7 +210,7 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
        } else if (preference == mStatusBarWeather) {
             int temperatureShow = Integer.valueOf((String) newValue);
             int index = mStatusBarWeather.findIndexOfValue((String) newValue);
-            Settings.System.putIntForUser(resolver,
+            Settings.System.putIntForUser(getContentResolver(),
                    Settings.System.STATUS_BAR_SHOW_WEATHER_TEMP,
                    temperatureShow, UserHandle.USER_CURRENT);
             if (temperatureShow == 0) {
