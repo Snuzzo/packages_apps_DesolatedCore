@@ -18,11 +18,12 @@ package com.deso.settings.fragments;
 
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceScreen;
+import android.support.v7.preference.Preference;
 import android.os.UserHandle;
 import android.support.v7.preference.ListPreference;
-
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
+import android.provider.Settings;
 
 public class StatusBarSettings extends DesoSettingsFragment implements Preference.OnPreferenceChangeListener {
 
@@ -40,7 +41,7 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
         mNotificationMode = (ListPreference) findPreference(NOTIFICATION_MODE);
         mNotificationMode.setOnPreferenceChangeListener(this);
         int headsupMode = Settings.System.getIntForUser(getContentResolver(),
-                Settings.System.HEADS_UP_USER_ENABLED,
+                Settings.System.HEADS_UP_NOTIFICATIONS_USER_ENABLED,
                 1, UserHandle.USER_CURRENT);
         int tickerMode = Settings.System.getIntForUser(getContentResolver(),
                 Settings.System.STATUS_BAR_SHOW_TICKER,
@@ -48,10 +49,10 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
         int notificationMode;
         if (headsupMode == 1) {
             notificationMode = 0;
-        } else if (tickerMode == 1) {
-            notificationMode = 1;
+        } else if (tickerMode != 0) {
+            notificationMode = tickerMode == 1 ? 1 : 2;
         } else {
-            notificationMode = 2;
+            notificationMode = 3;
         }
         mNotificationMode.setValue(String.valueOf(notificationMode));
         mNotificationMode.setSummary(mNotificationMode.getEntry());
@@ -69,12 +70,15 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
             } else if (notificationMode == 1) {
                 headsupMode = 0;
                 tickerMode = 1;
-            } else {
+            } else if (notificationMode == 2) {
+                headsupMode = 0;
+                tickerMode = 2;
+            }else {
                 headsupMode = 0;
                 tickerMode = 0;
             }
             Settings.System.putIntForUser(getContentResolver(),
-                    Settings.System.HEADS_UP_USER_ENABLED, headsupMode, UserHandle.USER_CURRENT);
+                    Settings.System.HEADS_UP_NOTIFICATIONS_USER_ENABLED, headsupMode, UserHandle.USER_CURRENT);
             Settings.System.putIntForUser(getContentResolver(),
                     Settings.System.STATUS_BAR_SHOW_TICKER, tickerMode, UserHandle.USER_CURRENT);
             int index = mNotificationMode.findIndexOfValue((String) newValue);

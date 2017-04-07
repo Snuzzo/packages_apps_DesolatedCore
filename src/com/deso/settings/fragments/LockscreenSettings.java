@@ -24,10 +24,6 @@ import com.android.settings.SettingsPreferenceFragment;
 
 public class LockscreenSettings extends DesoSettingsFragment {
 
-    private static final String NOTIFICATION_MODE = "notification_mode";
-
-    private ListPreference mNotificationMode;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
