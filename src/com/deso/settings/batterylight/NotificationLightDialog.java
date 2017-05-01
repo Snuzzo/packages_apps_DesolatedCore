@@ -46,9 +46,9 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.android.settings.R;
-import com.deso.settings.preferences.ColorPanelView;
-import com.deso.settings.preferences.ColorPickerView;
-import com.deso.settings.preferences.ColorPickerView.OnColorChangedListener;
+import com.android.settings.preference.ColorPanelView;
+import com.android.settings.preference.ColorPickerView;
+import com.android.settings.preference.ColorPickerView.OnColorChangedListener;
 
 import java.util.ArrayList;
 import java.util.Locale;

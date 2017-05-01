@@ -44,14 +44,14 @@ import android.widget.ListView;
 
 import com.android.internal.logging.MetricsProto.MetricsEvent;
 import com.android.internal.util.deso.ColorUtils;
+import com.android.settings.preference.SystemSettingSwitchPreference;
+import com.android.settings.preference.AppSelectListPreference;
+import com.android.settings.preference.AppSelectListPreference.PackageItem;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
 
-import com.android.settings.preference.SystemSettingSwitchPreference;
-import com.deso.settings.preferences.AppSelectListPreference;
-import com.deso.settings.preferences.AppSelectListPreference.PackageItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
