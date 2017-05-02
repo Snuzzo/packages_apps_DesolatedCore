@@ -401,6 +401,12 @@
     <string name="header_weather_summary">Enable notification panel header weather display</string>
     <string name="weather_icon_pack_title">Condition icon pack</string>
 
+    <!-- Header Weather -->
+    <string name="header_weather_enabled_title">Weather</string>
+    <string name="header_weather_enabled_summary">Enable weather info in expanded header</string>
+    <string name="header_weather_image_enabled_title">Weather Image</string>
+    <string name="header_weather_image_enabled_summary">Enable weather image in expanded header</string>
+
    <!-- Recents panel settings -->
     <string name="show_clear_all_recents_button_title">Clear all button</string>
     <string name="show_clear_all_recents_button_summary">Show clear all button</string>
