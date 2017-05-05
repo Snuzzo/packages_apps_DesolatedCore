@@ -23,21 +23,11 @@
             android:key="deso_statusbar_settings"
             android:title="@string/statusbar_settings_title"/>
 
-    <PreferenceCategory
-        android:title="@string/led_notification_title"
-        android:key="leds" >
 
-       <PreferenceScreen
-                 android:key="charging_light"
-                 android:fragment="com.deso.settings.batterylight.BatteryLightSettings"
-                 android:title="@string/battery_light_settings" />
-
-       <PreferenceScreen
-                 android:key="notification_light"
-                 android:fragment="com.deso.settings.batterylight.NotificationLightSettings"
-                 android:title="@string/notification_light_settings" />
-
-    </PreferenceCategory>
+    <PreferenceScreen
+            android:fragment="com.deso.settings.fragments.LedSettings"
+            android:key="deso_leds"
+            android:title="@string/leds"/>
 
     <PreferenceCategory
         android:key="deso_buttons"
