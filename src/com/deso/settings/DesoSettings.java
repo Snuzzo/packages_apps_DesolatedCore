@@ -17,20 +17,102 @@
 
 package com.deso.settings;
 
+
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.preference.PreferenceScreen;
+import android.support.v7.widget.Toolbar;
+import android.support.v13.app.FragmentPagerAdapter;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.deso.settings.fragments.ClockSettings;
+import com.deso.settings.fragments.LedSettings;
+import com.deso.settings.fragments.PowerMenuSettings;
+import com.deso.settings.fragments.StatusBarSettings;
+
 
 import com.android.internal.logging.MetricsProto.MetricsEvent;
-
 import com.android.settings.SettingsPreferenceFragment;
 
 public class DesoSettings extends SettingsPreferenceFragment {
 
+    ViewPager mViewPager;
+    ViewGroup mContainer;
+    PagerSlidingTabStrip mTabs;
+    SectionsPagerAdapter mSectionsPagerAdapter;
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mContainer = container;
+
+        View view = inflater.inflate(R.layout.main_layout, container, false);
+        mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        mTabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mTabs.setViewPager(mViewPager);
+        setHasOptionsMenu(true);
+        return view;
+    }
+
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
-        addPreferencesFromResource(R.xml.deso_settings_main);
-        PreferenceScreen prefScreen = getPreferenceScreen();
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle saveState) {
+        super.onSaveInstanceState(saveState);
+    }
+
+    class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        String titles[] = getTitles();
+        private Fragment frags[] = new Fragment[titles.length];
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+            frags[0] = new LedSettings();
+            frags[1] = new PowerMenuSettings();
+            frags[2] = new StatusBarSettings();
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return frags[position];
+        }
+
+        @Override
+        public int getCount() {
+            return frags.length;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return titles[position];
+        }
+    }
+
+    private String[] getTitles() {
+        String titleString[];
+        titleString = new String[]{
+                getString(R.string.leds),
+                getString(R.string.powermenu_settings_title),
+                getString(R.string.statusbar_settings_title)};
+
+        return titleString;
     }
 
     @Override
