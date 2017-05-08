@@ -28,6 +28,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.preference.PreferenceScreen;
@@ -54,18 +55,17 @@ public class DesoSettings extends SettingsPreferenceFragment {
 
     ViewPager mViewPager;
     ViewGroup mContainer;
-    PagerSlidingTabStrip mTabs;
+    PagerTabStrip mTabs;
     SectionsPagerAdapter mSectionsPagerAdapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContainer = container;
 
         View view = inflater.inflate(R.layout.main_layout, container, false);
-        mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        mTabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
+        mViewPager = (ViewPager) view.findViewById(R.id.pager);
+        mTabs = (PagerTabStrip) view.findViewById(R.id.tabs);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mTabs.setViewPager(mViewPager);
         setHasOptionsMenu(true);
         return view;
     }
