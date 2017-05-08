@@ -304,4 +304,14 @@
     <string name="vol_zen_title">Do not disturb switch</string>
     <string name="vol_zen_summary">Show do not disturb swith on volume panel</string>
 
+    <!-- Extended statusbar icons -->
+    <string name="qs_settings_icon_title">Hide settings shortcut</string>
+    <string name="qs_settings_icon_summary">Remove the settings shortcut in the extended statusbar</string>
+    <string name="qs_edit_title">Hide edit shortcut</string>
+    <string name="qs_edit_summary">Remove the edit shortcut in the extended statusbar</string>
+    <string name="qs_multiuser_switch_title">Hide multi-user shortcut</string>
+    <string name="qs_multiuser_switch_summary">Remove the multi user shortcut in the extended statusbar</string>
+    <string name="qs_expand_indicator_title">Hide expand indicator</string>
+    <string name="qs_expand_indicator_summary">Remove the indicator used to expand or collpase the quick settings area</string>
+  
 </resources>
