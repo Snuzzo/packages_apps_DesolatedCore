@@ -41,9 +41,10 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import com.deso.settings.fragments.DesoSettingsFragment;
 import com.deso.settings.fragments.ClockSettings;
+import com.deso.settings.fragments.DesoSettingsFragment;
 import com.deso.settings.fragments.LedSettings;
+import com.deso.settings.fragments.LockscreenSettings;
 import com.deso.settings.fragments.PowerMenuSettings;
 import com.deso.settings.fragments.StatusBarSettings;
 
@@ -86,11 +87,12 @@ public class DesoSettings extends SettingsPreferenceFragment {
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+            frags.add((DesoSettingsFragment) new StatusBarSettings());
             if(DesoSettings.this.getResources().getBoolean(com.android.internal.R.bool.config_intrusiveBatteryLed) ||
                DesoSettings.this.getResources().getBoolean(com.android.internal.R.bool.config_intrusiveNotificationLed))
                frags.add((DesoSettingsFragment) new LedSettings());
             frags.add((DesoSettingsFragment) new PowerMenuSettings());
-            frags.add((DesoSettingsFragment) new StatusBarSettings());
+            frags.add((DesoSettingsFragment) new LockscreenSettings());
         }
 
         @Override

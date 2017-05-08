@@ -193,4 +193,17 @@
     <string name="clock_date_style_lowercase">Lowercase</string>
     <string name="clock_date_style_uppercase">Uppercase</string>
     <string name="clock_date_format_custom">Custom java format</string>
+
+    <string name="lockscreen_torch_title">Lockscreen Torch</string>
+    <string name="lockscreen_torch_summary">Press and hold the power button with the screen off to turn on flashlight</string>
+    <string name="lockscreen_settings_title">Lock Screen</string>
+    <string name="lockscreen_charging_current_title">Lockscreen Charging Current</string>
+    <string name="lockscreen_charging_current_summary">Show charging current on bottom of lock screen</string>
+    <string name="lockscreen_battery_info_title">Lockscreen Battery Info</string>
+    <string name="lockscreen_battery_info_summary">Show battery info on bottom of lock screen</string>
+    <string name="statusbar_dt2s_title">Double Tap to Sleep</string>
+    <string name="statusbar_dt2s_summary">Double tap to sleep on status bar</string>
+    <string name="lockscreen_dt2s_title">Double Tap to Sleep</string>
+    <string name="lockscreen_dt2s_summary">Double tap to sleep on lock screen</string>
+
 </resources>

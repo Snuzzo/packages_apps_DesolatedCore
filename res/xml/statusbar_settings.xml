@@ -22,4 +22,9 @@
         android:title="@string/clock_settings_title"
         android:summary="@string/clock_settings_summary" />
 
+    <com.android.settings.preference.SystemSettingSwitchPreference
+        android:key="double_tap_sleep_gesture"
+        android:title="@string/statusbar_dt2s_title"
+        android:summary="@string/statusbar_dt2s_summary" />
+
 </PreferenceScreen>
