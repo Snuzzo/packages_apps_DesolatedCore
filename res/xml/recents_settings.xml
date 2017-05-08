@@ -71,4 +71,11 @@
         android:summary="@string/recents_mem_display_summary"
         android:defaultValue="true" />
 
+    <ListPreference
+        android:key="navigation_bar_recents"
+        android:title="@string/recents_type_title"
+        android:dialogTitle="@string/recents_type_title"
+        android:entries="@array/recents_type_title_entries"
+        android:entryValues="@array/recents_type_title_values"/>
+
 </PreferenceScreen>

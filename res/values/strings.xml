@@ -1004,4 +1004,10 @@
     <string name="smart_pulldown_dismissable">no dismissable</string>
     <string name="smart_pulldown_ongoing">no ongoing</string>
 
+    <!-- Aosp cards and grid recents -->
+    <string name="recents_type_title">Recents Style</string>
+    <string name="recents_stock">Cards</string>
+    <string name="recents_grid">Grid</string>
+
 </resources>
+
