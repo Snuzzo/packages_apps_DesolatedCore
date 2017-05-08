@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Flash ROM
+ * Copyright (C) 2017 DesolationROM
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,23 +16,21 @@
 
 package com.deso.settings.fragments;
 
-import android.os.Bundle;
-import android.support.v7.preference.PreferenceScreen;
-
 import com.android.internal.logging.MetricsProto.MetricsEvent;
 
-import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
-public class StatusBarSettings extends DesoSettingsFragment {
+public class DesoSettingsFragment extends SettingsPreferenceFragment {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        title = getResources().getString(R.string.statusbar_settings_title);
-        addPreferencesFromResource(R.xml.statusbar_settings);
-        final PreferenceScreen prefScreen = getPreferenceScreen();
+    protected String title = "";
+
+    public String getTitle() {
+        return title;
     }
 
+    @Override
+    protected int getMetricsCategory() {
+        return MetricsEvent.DESO;
+    }
 }
 

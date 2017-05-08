@@ -38,6 +38,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import com.deso.settings.fragments.DesoSettingsFragment;
 import com.deso.settings.fragments.ClockSettings;
 import com.deso.settings.fragments.LedSettings;
 import com.deso.settings.fragments.PowerMenuSettings;
@@ -79,40 +82,31 @@ public class DesoSettings extends SettingsPreferenceFragment {
 
     class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        String titles[] = getTitles();
-        private Fragment frags[] = new Fragment[titles.length];
+        private ArrayList<DesoSettingsFragment> frags = new ArrayList<DesoSettingsFragment>();
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
-            frags[0] = new LedSettings();
-            frags[1] = new PowerMenuSettings();
-            frags[2] = new StatusBarSettings();
+            if(DesoSettings.this.getResources().getBoolean(com.android.internal.R.bool.config_intrusiveBatteryLed) ||
+               DesoSettings.this.getResources().getBoolean(com.android.internal.R.bool.config_intrusiveNotificationLed))
+               frags.add((DesoSettingsFragment) new LedSettings());
+            frags.add((DesoSettingsFragment) new PowerMenuSettings());
+            frags.add((DesoSettingsFragment) new StatusBarSettings());
         }
 
         @Override
         public Fragment getItem(int position) {
-            return frags[position];
+            return (Fragment) frags.get(position);
         }
 
         @Override
         public int getCount() {
-            return frags.length;
+            return frags.size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return titles[position];
+            return ((DesoSettingsFragment) frags.get(position)).getTitle();
         }
-    }
-
-    private String[] getTitles() {
-        String titleString[];
-        titleString = new String[]{
-                getString(R.string.leds),
-                getString(R.string.powermenu_settings_title),
-                getString(R.string.statusbar_settings_title)};
-
-        return titleString;
     }
 
     @Override

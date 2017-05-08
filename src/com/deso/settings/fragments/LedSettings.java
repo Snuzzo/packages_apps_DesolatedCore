@@ -27,7 +27,7 @@ import com.android.internal.logging.MetricsProto.MetricsEvent;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
-public class LedSettings extends SettingsPreferenceFragment {
+public class LedSettings extends DesoSettingsFragment {
 
     private Preference mLeds;
     private Preference mChargingLeds;
@@ -36,6 +36,7 @@ public class LedSettings extends SettingsPreferenceFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        title = getResources().getString(R.string.leds);
         addPreferencesFromResource(R.xml.led_settings);
         final PreferenceScreen prefScreen = getPreferenceScreen();
 
@@ -58,9 +59,5 @@ public class LedSettings extends SettingsPreferenceFragment {
         }
     }
 
-    @Override
-    protected int getMetricsCategory() {
-        return MetricsEvent.DESO;
-    }
 }
 

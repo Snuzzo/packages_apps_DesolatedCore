@@ -40,7 +40,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PowerMenuSettings extends SettingsPreferenceFragment {
+public class PowerMenuSettings extends DesoSettingsFragment {
 
     private SwitchPreference mRebootPref;
     private SwitchPreference mScreenshotPref;
@@ -63,6 +63,7 @@ public class PowerMenuSettings extends SettingsPreferenceFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        title = getResources().getString(R.string.powermenu_settings_title);
         addPreferencesFromResource(R.xml.powermenu_settings);
         mContext = getActivity().getApplicationContext();
         PreferenceScreen prefScreen = getPreferenceScreen();
@@ -106,11 +107,6 @@ public class PowerMenuSettings extends SettingsPreferenceFragment {
         }
 
         getUserConfig();
-    }
-
-    @Override
-    protected int getMetricsCategory() {
-        return MetricsEvent.DESO;
     }
 
     @Override
