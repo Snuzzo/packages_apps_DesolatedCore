@@ -16,6 +16,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <string name="default_string">Default</string>
     <string name="recents_settings_title">Recents</string>
     <string name="color_picker_dialog_title">Color</string>
 

@@ -17,7 +17,7 @@
         android:key="slim_recents"
         android:title="@string/slim_recents_title">
 
-        <com.abc.settings.preferences.SystemSettingSwitchPreference
+        <com.android.settings.preference.SystemSettingSwitchPreference
             android:key="use_slim_recents"
             android:title="@string/use_slim_recents_title"
             android:summary="@string/use_slim_recents_summary"
@@ -25,7 +25,7 @@
 
         <PreferenceScreen
             android:key="slim_recent_panel"
-            android:fragment="com.abc.settings.fragments.SlimRecentPanel"
+            android:fragment="com.deso.settings.fragments.SlimRecentPanel"
             android:title="@string/slim_recents_settings_title"
             android:summary="@string/slim_recents_settings_summary"
             android:dependency="use_slim_recents"
