@@ -67,7 +67,7 @@ import com.android.internal.logging.MetricsProto.MetricsEvent;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
-import com.android.preference.colorpicker.ColorPickerPreference;
+import com.android.settings.preference.ColorPickerPreference;
 
 public class SlimRecentPanel extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener, DialogInterface.OnDismissListener {
