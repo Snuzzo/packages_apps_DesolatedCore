@@ -43,7 +43,7 @@ import com.android.settings.R;
 
 import com.deso.settings.preferences.CustomSeekBarPreference;
 
-public class NavbarSettings extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
+public class NavbarSettings extends DesoSettingsFragment implements OnPreferenceChangeListener {
 
     private static final String NAVBAR_VISIBILITY = "navbar_visibility";
     private static final String KEY_NAVBAR_MODE = "navbar_mode";
@@ -70,6 +70,7 @@ public class NavbarSettings extends SettingsPreferenceFragment implements OnPref
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.navbar_settings);
+        title = getResources().getString(R.string.navigationbar_settings_title);
 
         mNavInterface = (PreferenceCategory) findPreference(KEY_CATEGORY_NAVIGATION_INTERFACE);
         mNavGeneral = (PreferenceCategory) findPreference(KEY_CATEGORY_NAVIGATION_GENERAL);

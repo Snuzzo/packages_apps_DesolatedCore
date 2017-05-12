@@ -27,9 +27,4 @@
         android:title="@string/statusbar_dt2s_title"
         android:summary="@string/statusbar_dt2s_summary" />
 
-     <Preference
-        android:key="navigation_options"
-        android:fragment="com.abc.settings.fragments.NavbarSettings"
-        android:title="@string/navigationbar_settings_title" />
-
 </PreferenceScreen>

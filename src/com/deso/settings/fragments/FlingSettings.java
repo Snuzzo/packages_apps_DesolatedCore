@@ -18,7 +18,7 @@ package com.deso.settings.fragments;
 
 import java.util.ArrayList;
 
-import net.margaritov.preference.colorpicker.ColorPickerPreference;
+import com.android.settings.preference.ColorPickerPreference;
 
 import com.deso.settings.preferences.CustomSeekBarPreference;
 
@@ -334,8 +334,9 @@ public class FlingSettings extends ActionFragment implements
             }
         }
         boolean moreThanOne = actionPrefs.size() > 1;
+
         for (ActionPreference pref : actionPrefs) {
-            pref.setEnabled(moreThanOne);
+            pref.setEnabled(true);
         }
     }
 

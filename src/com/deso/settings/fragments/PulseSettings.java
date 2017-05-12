@@ -26,7 +26,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.UserHandle;
 import com.deso.settings.preferences.CustomSeekBarPreference;
-import net.margaritov.preference.colorpicker.ColorPickerPreference;
+import com.android.settings.preference.ColorPickerPreference;
 import android.support.v7.preference.PreferenceCategory;
 import android.support.v14.preference.SwitchPreference;
 import android.support.v7.preference.Preference;
