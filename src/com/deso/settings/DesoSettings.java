@@ -47,7 +47,7 @@ import com.deso.settings.fragments.LedSettings;
 import com.deso.settings.fragments.LockscreenSettings;
 import com.deso.settings.fragments.PowerMenuSettings;
 import com.deso.settings.fragments.StatusBarSettings;
-
+import com.deso.settings.fragments.NavigationBarSettings
 
 import com.android.internal.logging.MetricsProto.MetricsEvent;
 import com.android.settings.SettingsPreferenceFragment;
@@ -93,6 +93,7 @@ public class DesoSettings extends SettingsPreferenceFragment {
                frags.add((DesoSettingsFragment) new LedSettings());
             frags.add((DesoSettingsFragment) new PowerMenuSettings());
             frags.add((DesoSettingsFragment) new LockscreenSettings());
+            frags.add((DesoSettingsFragment) new NavigationBarSettings());
         }
 
         @Override
