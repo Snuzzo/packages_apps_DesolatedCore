@@ -60,4 +60,12 @@
     <string name="use_omniswitch_title">Use OmniSwitch for Recents</string>
     <string name="status_bar_brightness_control_title">Status Bar Brigtness Control</string>
     <string name="status_bar_brightness_control_summary">Swipe left/right on Status Bar to decrease/increase brightness</string>
+    <string name="status_bar_deso_logo_title">Show Desolation Logo in Status Bar</string>
+    <string name="misc_settings_title">Miscellaneous</string>
+    <string name="immersive_messages_title">Disable Immersive Messages</string>
+    <string name="expanded_notifications_title">Force Expand Notifications</string>
+
+    <!-- Notification Count in Statusbar -->
+    <string name="status_bar_notif_count_title">Show notification count</string>
+    <string name="status_bar_notif_count_summary">Display the number of pending notifications</string>
 </resources>
