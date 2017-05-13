@@ -300,4 +300,6 @@
     <string name="ticker_enabled">Statusbar notification ticker</string>
     <string name="ticker_media_enabled">Notifications and music ticker</string>
     <string name="headsup_ticker_disabled">Heads up and Ticker disabled</string>
+
+    <string name="use_omniswitch_title">Use OmniSwitch for Recents</string>
 </resources>
