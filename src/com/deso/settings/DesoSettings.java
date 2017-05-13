@@ -50,7 +50,7 @@ import com.deso.settings.fragments.StatusBarSettings;
 import com.deso.settings.fragments.NavbarSettings;
 import com.deso.settings.fragments.RecentsSettings;
 //import com.deso.settings.fragments.QSSettings;
-//import com.deso.settings.fragments.MiscSettings;
+import com.deso.settings.fragments.MiscSettings;
 //import com.deso.settings.fragments.AboutDeso;
 
 import com.android.internal.logging.MetricsProto.MetricsEvent;
@@ -69,7 +69,6 @@ public class DesoSettings extends SettingsPreferenceFragment {
         View view = inflater.inflate(R.layout.main_layout, container, false);
         mViewPager = (ViewPager) view.findViewById(R.id.pager);
         mTabs = (PagerTabStrip) view.findViewById(R.id.tabs);
-        mTabs.setDrawFullUnderline(false);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
         mViewPager.setAdapter(mSectionsPagerAdapter);
         setHasOptionsMenu(true);
@@ -100,8 +99,8 @@ public class DesoSettings extends SettingsPreferenceFragment {
             frags.add((DesoSettingsFragment) new LockscreenSettings());
             frags.add((DesoSettingsFragment) new NavbarSettings());
             frags.add((DesoSettingsFragment) new RecentsSettings());
-            //frags.add((DesoSettingsFragment) new MiscSettings());
             //frags.add((DesoSettingsFragment) new QSSettings());
+            frags.add((DesoSettingsFragment) new MiscSettings());
             //frags.add((DesoSettingsFragment) new AboutDeso());
         }
 
