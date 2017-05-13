@@ -22,7 +22,7 @@ import android.support.v7.preference.PreferenceScreen;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
-public class LockscreenSettings extends DesoSettingsFragment {
+public class MiscSettings extends DesoSettingsFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
