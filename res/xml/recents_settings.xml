@@ -15,12 +15,14 @@
 
     <PreferenceCategory
         android:key="slim_recents"
+        android:dependency="recents_use_omniswitch"
         android:title="@string/slim_recents_title">
 
         <com.android.settings.preference.SystemSettingSwitchPreference
             android:key="use_slim_recents"
             android:title="@string/use_slim_recents_title"
             android:summary="@string/use_slim_recents_summary"
+            android:dependency="recents_use_omniswitch"
             android:defaultValue="false" />
 
         <PreferenceScreen
@@ -32,5 +34,11 @@
             android:persistent="false" />
 
     </PreferenceCategory>
+
+    <com.android.settings.preference.SystemSettingSwitchPreference
+        android:key="recents_use_omniswitch"
+        android:title="@string/use_omniswitch_title"
+        android:disableDependentsState="true"
+        android:defaultValue="false" />
 
 </PreferenceScreen>
