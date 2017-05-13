@@ -71,6 +71,13 @@ public class DesoSettings extends SettingsPreferenceFragment {
         mTabs = (PagerTabStrip) view.findViewById(R.id.tabs);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setCurrentItem(1);
+        mViewPager.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mViewPager.setCurrentItem(0);
+            }
+        },100);
         setHasOptionsMenu(true);
         return view;
     }
