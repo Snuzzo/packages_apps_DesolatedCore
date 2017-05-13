@@ -224,4 +224,6 @@
     <string name="headsup_ticker_disabled">Heads up and Ticker disabled</string>
 
     <string name="use_omniswitch_title">Use OmniSwitch for Recents</string>
+    <string name="status_bar_brightness_control_title">Status Bar Brigtness Control</string>
+    <string name="status_bar_brightness_control_summary">Swipe left/right on Status Bar to decrease/increase brightness</string>
 </resources>
