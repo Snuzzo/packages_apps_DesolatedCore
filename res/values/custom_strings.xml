@@ -121,4 +121,8 @@
     <string name="wired_ringtone_focus_mode_dynamic">Wired headset if connected and playing music</string>
     <string name="wired_ringtone_focus_mode_stock">Speakerphone (default)</string>
 
+     <!-- hide power menu -->
+     <string name="powermenu_lockscreen_title">Power menu on lock screen</string>
+     <string name="powermenu_lockscreen_summary">Show power menu on the lock screen</string>
+
 </resources>
