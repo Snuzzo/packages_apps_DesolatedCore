@@ -24,6 +24,7 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceScreen;
 import android.support.v7.preference.Preference.OnPreferenceChangeListener;
 import android.provider.Settings;
+import android.content.ContentResolver;
 
 import android.support.v14.preference.SwitchPreference;
 
