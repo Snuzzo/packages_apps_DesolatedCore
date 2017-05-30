@@ -152,4 +152,10 @@
     <!-- QS footer warnings -->
     <string name="qs_footer_warnings_title">QS footer warnings</string>
     <string name="qs_footer_warnings_summary">Display a warning at bottom of QS panel when network is monitored by external apps or vpn</string>
+
+    <!-- QS Tile Titles -->
+    <string name="qs_tile_title_visibility_title">QS tile titles</string>
+    <string name="qs_tile_title_visibility_summary_on">QS tiles titles are now visible</string>
+    <string name="qs_tile_title_visibility_summary_off">QS tiles titles are now gone</string>
+
 </resources>
