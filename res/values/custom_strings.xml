@@ -15,6 +15,10 @@
 
     <string name="qs_settings_title">QS Tiles</string>
 
+    <string name="qs_tile_title_visibility_title">QS tile titles</string>
+    <string name="qs_tile_title_visibility_summary_on">QS tiles titles are now visible</string>
+    <string name="qs_tile_title_visibility_summary_off">QS tiles titles are now gone</string>
+
     <!-- QS easy toggles -->
     <string name="qs_easy_toggle_title">Advanced QS Easy Toggle</string>
     <string name="qs_easy_toggle_summary">Enable one tap action to enable/disable mobile data, wifi, location and bluetooth</string>
