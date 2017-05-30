@@ -53,4 +53,9 @@
         android:fragment="com.deso.settings.fragments.CarrierLabelSettings"
         android:title="@string/carrier_label_settings_title" />
 
+    <Preference
+        android:key="batterybar"
+        android:title="@string/battery_bar_title"
+        android:fragment="com.deso.settings.fragments.BatteryBar" />
+
 </PreferenceScreen>
