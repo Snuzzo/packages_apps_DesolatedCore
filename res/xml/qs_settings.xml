@@ -16,7 +16,7 @@
     <com.deso.settings.preferences.CustomSeekBarPreference
         android:key="sysui_qqs_count_key"
         android:title="@string/sysui_qqs_count_title"
-        android:max="8"
+        settings:max="8"
         settings:min="3"
         settings:units=""
         android:persistent="false" />
