@@ -58,4 +58,9 @@
         android:title="@string/battery_bar_title"
         android:fragment="com.deso.settings.fragments.BatteryBar" />
 
+    <Preference
+        android:key="deso_network_traffic_state"
+        android:title="@string/network_traffic_title"
+        android:fragment="com.deso.settings.fragments.NetworkTraffic" />
+
 </PreferenceScreen>
