@@ -137,14 +137,14 @@ public class BatteryBar extends SettingsPreferenceFragment implements
 
             boolean hasNavBarByDefault = getResources().getBoolean(
                     com.android.internal.R.bool.config_showNavigationBar);
-            boolean enableNavigationBar = Settings.Secure.getInt(resolver,
+/*            boolean enableNavigationBar = Settings.Secure.getInt(resolver,
                     Settings.Secure.NAVIGATION_BAR_VISIBLE, hasNavBarByDefault ? 1 : 0) == 1;
             boolean batteryBarSupported = Settings.Secure.getInt(resolver,
-                    Settings.Secure.NAVIGATION_BAR_MODE, 0) == 0;
+                    Settings.Secure.NAVIGATION_BAR_MODE, 0) == 0;*/
 
-            if (!enableNavigationBar || !batteryBarSupported) {
-                prefSet.removePreference(mBatteryBar);
-            } else {
+            if (!hasNavBarByDefault) {
+//                prefSet.removePreference(mBatteryBar);
+  //          } else {
                 prefSet.removePreference(mBatteryBarNoNavbar);
             }
 
