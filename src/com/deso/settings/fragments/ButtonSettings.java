@@ -16,7 +16,7 @@
  *
  */
 
-package com.dirtyunicorns.dutweaks.fragments;
+package com.deso.settings.fragments;
 
 import android.content.ContentResolver;
 import android.content.res.Resources;
@@ -38,8 +38,8 @@ import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.MetricsProto.MetricsEvent;
 import com.android.internal.utils.du.ActionConstants;
 import com.android.internal.utils.du.DUActionUtils;
-import com.dirtyunicorns.dutweaks.fragments.ActionFragment;
-import com.dirtyunicorns.dutweaks.preference.CustomSeekBarPreference;
+import com.deso.settings.fragments.ActionFragment;
+import com.deso.settings.preferences.CustomSeekBarPreference;
 
 public class ButtonSettings extends ActionFragment implements OnPreferenceChangeListener {
 
@@ -216,7 +216,7 @@ public class ButtonSettings extends ActionFragment implements OnPreferenceChange
 
     @Override
     protected int getMetricsCategory() {
-        return MetricsEvent.DIRTYTWEAKS;
+        return MetricsEvent.DESO;
     }
 
     @Override
@@ -235,7 +235,7 @@ public class ButtonSettings extends ActionFragment implements OnPreferenceChange
             return true;
         } else if (preference == mVolumeRockerMusicControl) {
             boolean value = (Boolean) newValue;
-            Settings.System.putInt(resolver, VOLUME_ROCKER_MUSIC_CONTROLS,
+            Settings.System.putIntForUser(resolver, VOLUME_ROCKER_MUSIC_CONTROLS,
                     value ? 1 : 0, UserHandle.USER_CURRENT);
             return true;
         } else if (preference == mWiredHeadsetRingtoneFocus) {

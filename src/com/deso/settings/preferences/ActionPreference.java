@@ -18,7 +18,7 @@
  * key is identical to the target ConfigMap tag in ActionConstants 
  */
 
-package com.dirtyunicorns.dutweaks.preference;
+package com.deso.settings.preferences;
 
 import java.util.Map;
 

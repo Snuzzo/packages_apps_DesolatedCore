@@ -16,7 +16,7 @@
  * Adapter for displaying custom actions in a list
  */
 
-package com.dirtyunicorns.dutweaks;
+package com.deso.settings;
 
 import java.util.ArrayList;
 import java.util.List;

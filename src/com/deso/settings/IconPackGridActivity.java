@@ -16,7 +16,7 @@
  * GridView displaying all the available icons in a Icon pack.
  */
 
-package com.dirtyunicorns.dutweaks;
+package com.deso.settings;
 
 import java.io.IOException;
 import java.io.InputStream;

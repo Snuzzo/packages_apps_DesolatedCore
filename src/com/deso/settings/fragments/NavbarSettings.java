@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.dirtyunicorns.dutweaks.fragments;
+package com.deso.settings.fragments;
 
 import java.util.ArrayList;
 
@@ -41,7 +41,7 @@ import com.android.internal.utils.du.DUActionUtils;
 import com.android.internal.utils.du.Config.ButtonConfig;
 import com.android.settings.R;
 
-import com.dirtyunicorns.dutweaks.preference.CustomSeekBarPreference;
+import com.deso.settings.preferences.CustomSeekBarPreference;
 
 public class NavbarSettings extends DesoSettingsFragment implements OnPreferenceChangeListener {
 
@@ -164,6 +164,6 @@ public class NavbarSettings extends DesoSettingsFragment implements OnPreference
 
     @Override
     protected int getMetricsCategory() {
-        return MetricsEvent.DIRTYTWEAKS;
+        return MetricsEvent.DESO;
     }
 }

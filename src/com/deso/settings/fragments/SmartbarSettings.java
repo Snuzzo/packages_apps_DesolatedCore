@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.dirtyunicorns.dutweaks.fragments;
+package com.deso.settings.fragments;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -60,7 +60,7 @@ import com.android.internal.utils.du.Config;
 import com.android.internal.utils.du.Config.ButtonConfig;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import com.dirtyunicorns.dutweaks.preference.CustomSeekBarPreference;
+import com.deso.settings.preferences.CustomSeekBarPreference;
 
 public class SmartbarSettings extends SettingsPreferenceFragment implements
         OnPreferenceChangeListener {
@@ -397,6 +397,6 @@ public class SmartbarSettings extends SettingsPreferenceFragment implements
 
     @Override
     protected int getMetricsCategory() {
-        return MetricsEvent.DIRTYTWEAKS;
+        return MetricsEvent.DESO;
     }
 }

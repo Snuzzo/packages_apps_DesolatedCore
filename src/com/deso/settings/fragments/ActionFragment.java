@@ -17,7 +17,7 @@
  * class that holds target widget state
  */
 
-package com.dirtyunicorns.dutweaks.fragments;
+package com.deso.settings.fragments;
 
 import java.util.ArrayList;
 
@@ -29,9 +29,9 @@ import com.android.internal.utils.du.Config;
 import com.android.internal.utils.du.Config.ActionConfig;
 import com.android.internal.utils.du.Config.ButtonConfig;
 
-import com.dirtyunicorns.dutweaks.ShortcutPickHelper;
-import com.dirtyunicorns.dutweaks.preference.ActionPreference;
-import com.dirtyunicorns.dutweaks.CustomActionListAdapter;
+import com.deso.settings.ShortcutPickHelper;
+import com.deso.settings.preferences.ActionPreference;
+import com.deso.settings.CustomActionListAdapter;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -242,6 +242,6 @@ public class ActionFragment extends SettingsPreferenceFragment implements
 
     @Override
     protected int getMetricsCategory() {
-        return MetricsEvent.DIRTYTWEAKS;
+        return MetricsEvent.DESO;
     }
 }

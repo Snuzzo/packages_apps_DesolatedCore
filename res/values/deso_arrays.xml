@@ -188,8 +188,8 @@
     </string-array>
 
     <string-array name="systemui_navbar_settings_fragments" translatable="false">
-        <item>com.dirtyunicorns.dutweaks.fragments.SmartbarSettings</item>
-        <item>com.dirtyunicorns.dutweaks.fragments.FlingSettings</item>
+        <item>com.deso.settings.fragments.SmartbarSettings</item>
+        <item>com.deso.settings.fragments.FlingSettings</item>
     </string-array>
 
     <string-array name="systemui_navbar_mode_settings">
@@ -278,25 +278,6 @@
         <item>5</item>
         <item>8</item>
         <item>9</item>
-    </string-array>
-
-    <!--- Buttons backlight timeout -->
-    <string-array name="backlight_timeout_entries">
-        <item>@string/backlight_timeout_on</item>
-        <item>@string/backlight_timeout_default</item>
-        <item>@string/backlight_timeout_10s</item>
-        <item>@string/backlight_timeout_15s</item>
-        <item>@string/backlight_timeout_20s</item>
-        <item>@string/backlight_timeout_30s</item>
-    </string-array>
-
-    <string-array name="backlight_timeout_values">
-        <item>0</item>
-        <item>5000</item>
-        <item>10000</item>
-        <item>15000</item>
-        <item>20000</item>
-        <item>30000</item>
     </string-array>
 
     <!-- Battery bar -->

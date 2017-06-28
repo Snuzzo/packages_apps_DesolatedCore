@@ -17,11 +17,11 @@
  * ActionHandler framework
  */
 
-package com.dirtyunicorns.dutweaks;
+package com.deso.settings;
 
 import com.android.internal.utils.du.Config.ActionConfig;
 import com.android.settings.R;
-import com.dirtyunicorns.dutweaks.CustomActionListAdapter;
+import com.deso.settings.CustomActionListAdapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;

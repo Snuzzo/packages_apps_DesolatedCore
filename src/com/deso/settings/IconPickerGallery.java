@@ -15,7 +15,7 @@
  *
  */
 
-package com.dirtyunicorns.dutweaks;
+package com.deso.settings;
 
 import java.io.File;
 
