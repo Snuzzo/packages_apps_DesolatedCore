@@ -18,12 +18,6 @@
     android:layout="@layout/tab"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
-    <PreferenceScreen
-        android:key="button_settings"
-        android:title="@string/button_settings"
-        android:layout="@layout/preference_buttons"
-        android:fragment="com.deso.settings.fragments.ButtonSettings" />
-
     <Preference
         android:key="navigation_options"
         android:fragment="com.deso.settings.fragments.NavbarSettings"
