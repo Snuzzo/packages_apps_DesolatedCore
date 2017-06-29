@@ -24,10 +24,15 @@ import android.support.v7.preference.PreferenceScreen;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.ListPreference;
 import android.graphics.Color;
+import android.content.Context;
+import android.support.v7.preference.PreferenceCategory;
+import android.support.v14.preference.PreferenceFragment;
+import android.support.v14.preference.SwitchPreference;
+import android.provider.SearchIndexableResource;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import com.android.settings.preference.ColorPickerPreference
+import com.android.settings.preference.ColorPickerPreference;
 
 public class StatusBarSettings extends DesoSettingsFragment implements Preference.OnPreferenceChangeListener {
 
@@ -94,7 +99,7 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
 
         int chargeColor = Settings.Secure.getInt(resolver,
                 Settings.Secure.STATUS_BAR_CHARGE_COLOR, Color.WHITE);
-        mChargeColor = (ColorPickerPreference) findPreference("status_bar_charge_color");
+        mChargeColor = (ColorPickerPreference) findPreference(STATUS_BAR_CHARGE_COLOR);
         mChargeColor.setNewPreviewColor(chargeColor);
         mChargeColor.setOnPreferenceChangeListener(this);
 
@@ -147,7 +152,7 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
             int index = mStatusBarBattery.findIndexOfValue((String) newValue);
             mStatusBarBattery.setSummary(
                     mStatusBarBattery.getEntries()[index]);
-            Settings.Secure.putInt(resolver,
+            Settings.Secure.putInt(getContentResolver(),
                     Settings.Secure.STATUS_BAR_BATTERY_STYLE, mStatusBarBatteryValue);
             enableStatusBarBatteryDependents();
             return true;
@@ -156,19 +161,18 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
             int index = mStatusBarBatteryShowPercent.findIndexOfValue((String) newValue);
             mStatusBarBatteryShowPercent.setSummary(
                     mStatusBarBatteryShowPercent.getEntries()[index]);
-            Settings.Secure.putInt(resolver,
+            Settings.Secure.putInt(getContentResolver(),
                     Settings.Secure.STATUS_BAR_SHOW_BATTERY_PERCENT, mStatusBarBatteryShowPercentValue);
             enableStatusBarBatteryDependents();
             return true;
         } else if  (preference == mForceChargeBatteryText) {
             boolean checked = ((SwitchPreference)preference).isChecked();
-            Settings.Secure.putInt(resolver,
+            Settings.Secure.putInt(getContentResolver(),
                     Settings.Secure.FORCE_CHARGE_BATTERY_TEXT, checked ? 1:0);
-            //enableStatusBarBatteryDependents();
             return true;
         } else if (preference.equals(mChargeColor)) {
             int color = ((Integer) newValue).intValue();
-            Settings.Secure.putInt(resolver,
+            Settings.Secure.putInt(getContentResolver(),
                     Settings.Secure.STATUS_BAR_CHARGE_COLOR, color);
             return true;
         } else if (preference == mTextChargingSymbol) {
@@ -176,7 +180,7 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
             int index = mTextChargingSymbol.findIndexOfValue((String) newValue);
             mTextChargingSymbol.setSummary(
                     mTextChargingSymbol.getEntries()[index]);
-            Settings.Secure.putInt(resolver,
+            Settings.Secure.putInt(getContentResolver(),
                     Settings.Secure.TEXT_CHARGING_SYMBOL, mTextChargingSymbolValue);
             return true;
         }
@@ -186,7 +190,6 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
     private void enableStatusBarBatteryDependents() {
         if (mStatusBarBatteryValue == STATUS_BAR_BATTERY_STYLE_HIDDEN) {
             mStatusBarBatteryShowPercent.setEnabled(false);
-            mQsBatteryTitle.setEnabled(false);
             mForceChargeBatteryText.setEnabled(false);
             mChargeColor.setEnabled(false);
             mTextChargingSymbol.setEnabled(false);
@@ -199,19 +202,11 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
             mStatusBarBatteryShowPercent.setEnabled(true);
             mChargeColor.setEnabled(true);
             mForceChargeBatteryText.setEnabled(mStatusBarBatteryShowPercentValue == 2 ? false : true);
-            //relying on the mForceChargeBatteryText isChecked state is glitchy
-            //you need to click it twice to update the mTextChargingSymbol setEnabled state
-            //then the mForceChargeBatteryText isChecked state is incorrectly taken inverted
-            //so till a fix let's keep mTextChargingSymbol enabled by default
-            //mTextChargingSymbol.setEnabled((mStatusBarBatteryShowPercentValue == 0 && !mForceChargeBatteryText.isChecked())
-            //|| (mStatusBarBatteryShowPercentValue == 1 && !mForceChargeBatteryText.isChecked()) ? false : true);
             mTextChargingSymbol.setEnabled(true);
         } else {
             mStatusBarBatteryShowPercent.setEnabled(true);
             mChargeColor.setEnabled(true);
             mForceChargeBatteryText.setEnabled(mStatusBarBatteryShowPercentValue == 2 ? false : true);
-            //mTextChargingSymbol.setEnabled((mStatusBarBatteryShowPercentValue == 0 && !mForceChargeBatteryText.isChecked())
-            //|| (mStatusBarBatteryShowPercentValue == 1 && !mForceChargeBatteryText.isChecked()) ? false : true);
             mTextChargingSymbol.setEnabled(true);
         }
     }
