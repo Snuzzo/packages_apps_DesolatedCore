@@ -322,5 +322,9 @@
     <string name="immersive_recents_fullscreen">Fullscreen</string>
     <string name="immersive_recents_statusbar">Statusbar only</string>
     <string name="immersive_recents_navbar">Navbar only</string>
+
+    <!-- Recents Membar -->
+    <string name="recents_mem_display_title">Show memory bar</string>
+    <string name="recents_mem_display_summary">Show available RAM in recents</string>
   
 </resources>
