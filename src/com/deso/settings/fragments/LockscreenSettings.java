@@ -27,7 +27,6 @@ import android.support.v7.preference.Preference.OnPreferenceChangeListener;
 import android.support.v7.preference.PreferenceScreen;
 import android.support.v14.preference.SwitchPreference;
 import android.provider.Settings;
-import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuInflater;
@@ -43,14 +42,12 @@ public class LockscreenSettings extends DesoSettingsFragment implements OnPrefer
     private static final String LOCKSCREEN_CLOCK_COLOR = "lockscreen_clock_color";
     private static final String LOCKSCREEN_CLOCK_DATE_COLOR = "lockscreen_clock_date_color";
     private static final String LOCKSCREEN_COLORS_RESET = "lockscreen_colors_reset";
-    private static final String PREF_LOCK_SCREEN_HIDE_AMPM = "lock_screen_hide_ampm";
 
     private ColorPickerPreference mLockscreenOwnerInfoColorPicker;
     private ColorPickerPreference mLockscreenAlarmColorPicker;
     private ColorPickerPreference mLockscreenClockColorPicker;
     private ColorPickerPreference mLockscreenClockDateColorPicker;
     private Preference mLockscreenColorsReset;
-    private SwitchPreference mHideAmPm;
 
     private static final int MENU_RESET = Menu.FIRST;
     static final int DEFAULT = 0xffffffff;
@@ -100,12 +97,6 @@ public class LockscreenSettings extends DesoSettingsFragment implements OnPrefer
         mLockscreenClockDateColorPicker.setNewPreviewColor(intColor);
 
         mLockscreenColorsReset = (Preference) findPreference(LOCKSCREEN_COLORS_RESET);
-
-        mHideAmPm = (SwitchPreference) findPreference(PREF_LOCK_SCREEN_HIDE_AMPM);
-
-        if (DateFormat.is24HourFormat(getActivity())) {
-            getPreferenceScreen().removePreference(mHideAmPm);
-        }
 
         setHasOptionsMenu(true);
     }

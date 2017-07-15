@@ -44,13 +44,6 @@
         android:defaultValue="true" />
 
     <com.android.settings.preference.SystemSettingSwitchPreference
-        android:key="lock_screen_hide_ampm"
-        android:title="@string/lock_screen_hide_ampm_title"
-        android:summaryOn="@string/lock_screen_hide_ampm_summary_on"
-        android:summaryOff="@string/lock_screen_hide_ampm_summary_off"
-        android:defaultValue="false" />
-
-    <com.android.settings.preference.SystemSettingSwitchPreference
         android:key="lockscreen_qs_disabled"
         android:title="@string/lockscreen_qs_disabled_title"
         android:summary="@string/lockscreen_qs_disabled_summary" />

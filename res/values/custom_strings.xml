@@ -553,11 +553,6 @@
     <string name="lockscreen_colors_reset_message">Are you sure you want to reset these colors to default?</string>
     <string name="yes">YES</string>
 
-    <!-- Lock screen Am/Pm switch -->
-    <string name="lock_screen_hide_ampm_title">Hide AM/PM</string>
-    <string name="lock_screen_hide_ampm_summary_on">AM/PM hidden</string>
-    <string name="lock_screen_hide_ampm_summary_off">AM/PM shown</string>
-
     <!-- Hide Lockscreen clock & date -->
     <string name="hide_lockscreen_items_title">Lockscreen items</string>
     <string name="hide_lockscreen_clock_title">Show lockscreen clock</string>
