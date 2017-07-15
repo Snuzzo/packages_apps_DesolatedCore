@@ -19,7 +19,9 @@ package com.deso.settings.fragments;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.UserHandle;
 import android.provider.Settings;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceCategory;
@@ -195,7 +197,7 @@ public class QSSettings extends DesoSettingsFragment implements
             mWeatherIconPack.setSummary(mWeatherIconPack.getEntries()[valueIndex]);
             return true;
         } else if (preference == mQuickPulldown) {
-            int quickPulldownValue = Integer.valueOf((String) objValue);
+            int quickPulldownValue = Integer.valueOf((String) newValue);
             Settings.System.putIntForUser(getContentResolver(), Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN,
                     quickPulldownValue, UserHandle.USER_CURRENT);
             updatePulldownSummary(quickPulldownValue);
