@@ -79,7 +79,7 @@
         android:persistent="false"
         android:defaultValue="0xffffff" />
 
-    <com.deso.settings.preferences.SecureSettingSwitchPreference
+    <com.android.settings.preference.SecureSettingSwitchPreference
         android:key="force_charge_battery_text"
         android:title="@string/force_charge_battery_text_title"
         android:summaryOn="@string/force_charge_battery_text_summary_on"
