@@ -14,7 +14,8 @@
      limitations under the License.
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">	    
+    xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
+    android:key="ls_preferences">
 
     <com.android.settings.preference.SystemSettingSwitchPreference
         android:key="keyguard_toggle_torch"
@@ -62,6 +63,20 @@
         android:key="hide_lockscreen_date"
         android:title="@string/hide_lockscreen_date_title"
         android:defaultValue="true" />
+
+
+    <!-- FP Unlock Options -->
+    <PreferenceCategory
+            android:key="fp_ls_category"
+            android:title="@string/fp_cat_title" >
+
+
+        <com.android.settings.preference.SystemSettingSwitchPreference
+            android:key="fp_unlock_keystore"
+            android:title="@string/fp_keystore"
+            android:defaultValue="false" />
+
+    </PreferenceCategory>
 
 
     <!-- Lockscreen colors -->
