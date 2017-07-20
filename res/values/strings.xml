@@ -1021,6 +1021,7 @@
 
     <string name="fp_cat_title">Fingerprint Options</string>
     <string name="fp_keystore">FP Quick Unlock</string>
+    <string name="fp_vibrate">FP Vibrate on Unlock</string>
 
 </resources>
 
