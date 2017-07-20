@@ -20,10 +20,12 @@ import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.Preference.OnPreferenceChangeListener;
+import android.support.v7.preference.PreferenceCategory;
 import android.support.v7.preference.PreferenceScreen;
 import android.support.v14.preference.SwitchPreference;
 import android.provider.Settings;
@@ -42,12 +44,14 @@ public class LockscreenSettings extends DesoSettingsFragment implements OnPrefer
     private static final String LOCKSCREEN_CLOCK_COLOR = "lockscreen_clock_color";
     private static final String LOCKSCREEN_CLOCK_DATE_COLOR = "lockscreen_clock_date_color";
     private static final String LOCKSCREEN_COLORS_RESET = "lockscreen_colors_reset";
-
+    private static final String LOCKSCREEN_FP_CATEGORY = "fp_ls_category";
+    private static final String LOCKSCREEN_PREF = "ls_preferences";
     private ColorPickerPreference mLockscreenOwnerInfoColorPicker;
     private ColorPickerPreference mLockscreenAlarmColorPicker;
     private ColorPickerPreference mLockscreenClockColorPicker;
     private ColorPickerPreference mLockscreenClockDateColorPicker;
     private Preference mLockscreenColorsReset;
+    private FingerprintManager mFPMgr;
 
     private static final int MENU_RESET = Menu.FIRST;
     static final int DEFAULT = 0xffffffff;
@@ -59,7 +63,7 @@ public class LockscreenSettings extends DesoSettingsFragment implements OnPrefer
         addPreferencesFromResource(R.xml.lockscreen_settings);
 
         ContentResolver resolver = getActivity().getContentResolver();
-
+        PreferenceScreen mLSPrefScreen = (PreferenceScreen) findPreference(LOCKSCREEN_PREF);
         // LockscreenColors
         int intColor;
         String hexColor;
@@ -97,6 +101,13 @@ public class LockscreenSettings extends DesoSettingsFragment implements OnPrefer
         mLockscreenClockDateColorPicker.setNewPreviewColor(intColor);
 
         mLockscreenColorsReset = (Preference) findPreference(LOCKSCREEN_COLORS_RESET);
+        PreferenceCategory mFpCategory = (PreferenceCategory) findPreference(LOCKSCREEN_FP_CATEGORY);
+
+        mFPMgr = (FingerprintManager) getActivity().getSystemService(Context.FINGERPRINT_SERVICE);
+
+        if (!mFPMgr.isHardwareDetected()){
+            mLSPrefScreen.removePreference(mFpCategory);
+        }
 
         setHasOptionsMenu(true);
     }
