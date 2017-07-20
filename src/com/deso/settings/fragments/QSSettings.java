@@ -57,6 +57,7 @@ public class QSSettings extends DesoSettingsFragment implements
     private static final String CUSTOM_HEADER_BROWSE = "custom_header_browse";
     private static final String QUICK_PULLDOWN = "quick_pulldown";
     private static final String PREF_SMART_PULLDOWN = "smart_pulldown";
+    private static final String HEADER_TIME_DATE = "qs_date_time_center";
 
     private CustomSeekBarPreference mSysuiQqsCount;
     private ListPreference mWeatherIconPack;
@@ -68,6 +69,7 @@ public class QSSettings extends DesoSettingsFragment implements
     private PreferenceScreen mHeaderBrowse;
     private ListPreference mQuickPulldown;
     private ListPreference mSmartPulldown;
+    private ListPreference mHeaderClock;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -171,6 +173,12 @@ public class QSSettings extends DesoSettingsFragment implements
                 Settings.System.QS_SMART_PULLDOWN, 0, UserHandle.USER_CURRENT);
         mSmartPulldown.setValue(String.valueOf(smartPulldown));
         updateSmartPulldownSummary(smartPulldown);
+
+        mHeaderClock = (ListPreference) findPreference(HEADER_TIME_DATE);
+        mHeaderClock.setOnPreferenceChangeListener(this);
+        int headerClockValue = Settings.System.getInt(getContentResolver(),
+                Settings.System.QS_DATE_TIME_CENTER , 1);
+        mHeaderClock.setValue(String.valueOf(headerClockValue));
     }
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mSysuiQqsCount) {
@@ -215,6 +223,10 @@ public class QSSettings extends DesoSettingsFragment implements
             int smartPulldown = Integer.valueOf((String) newValue);
             Settings.System.putInt(getContentResolver(), Settings.System.QS_SMART_PULLDOWN, smartPulldown);
             updateSmartPulldownSummary(smartPulldown);
+            return true;
+        } else if (preference == mHeaderClock) {
+            int headervalue = Integer.valueOf((String) newValue);
+            Settings.System.putInt(getContentResolver(), Settings.System.QS_DATE_TIME_CENTER , headervalue);
             return true;
         }
         return false;

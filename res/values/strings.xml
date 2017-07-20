@@ -1015,9 +1015,12 @@
     <!-- lock screen visualizer -->
     <string name="lockscreen_visualizer_title">Display music visualizer</string>
 
-    <!-- Center Date + Time in header -->
-    <string name="qs_date_time_center_title">Center Date and Time</string>
-    <string name="qs_date_time_center_summary">Requires one or more icons to be disabled</string>
+    <!-- Date + Time in header -->
+    <string name="qs_date_time_center_title">Pulldown Date and Time</string>
+    <string name="qs_date_time_center_summary">Center: requires 1 or more icons to be disabled</string>
+    <string name="qs_date_time_center">Center</string>
+    <string name="qs_date_time_left">Left</string>
+    <string name="qs_date_time_hidden">Hidden</string>
 
     <string name="fp_cat_title">Fingerprint Options</string>
     <string name="fp_keystore">FP Quick Unlock</string>
