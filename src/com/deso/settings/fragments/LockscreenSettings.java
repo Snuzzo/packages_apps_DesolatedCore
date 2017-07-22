@@ -36,8 +36,11 @@ import android.view.MenuInflater;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.preference.ColorPickerPreference;
+import com.android.settings.preference.SecureSettingSwitchPreference;
 
 import com.deso.settings.preferences.CustomSeekBarPreference;
+
+import com.android.internal.util.deso.Helpers;
 
 public class LockscreenSettings extends DesoSettingsFragment implements OnPreferenceChangeListener {
 
@@ -49,15 +52,17 @@ public class LockscreenSettings extends DesoSettingsFragment implements OnPrefer
     private static final String LOCKSCREEN_FP_CATEGORY = "fp_ls_category";
     private static final String LOCKSCREEN_PREF = "ls_preferences";
     private static final String LOCKSCREEN_MAX_NOTIF_CONFIG = "lockscreen_max_notif_config";
+    private static final String LOCK_QS_DISABLED = "lockscreen_qs_disabled";
 
     private ColorPickerPreference mLockscreenOwnerInfoColorPicker;
     private ColorPickerPreference mLockscreenAlarmColorPicker;
     private ColorPickerPreference mLockscreenClockColorPicker;
     private ColorPickerPreference mLockscreenClockDateColorPicker;
+    private Context mContext;
     private CustomSeekBarPreference mMaxKeyguardNotifConfig;
     private Preference mLockscreenColorsReset;
     private FingerprintManager mFPMgr;
-
+    private SecureSettingSwitchPreference mLockQSDisabled;
     private static final int MENU_RESET = Menu.FIRST;
     static final int DEFAULT = 0xffffffff;
 
@@ -74,6 +79,7 @@ public class LockscreenSettings extends DesoSettingsFragment implements OnPrefer
         // LockscreenColors
         int intColor;
         String hexColor;
+        mContext = getActivity().getApplicationContext();
 
         mLockscreenOwnerInfoColorPicker = (ColorPickerPreference) findPreference(LOCKSCREEN_OWNER_INFO_COLOR);
         mLockscreenOwnerInfoColorPicker.setOnPreferenceChangeListener(this);
@@ -121,6 +127,8 @@ public class LockscreenSettings extends DesoSettingsFragment implements OnPrefer
         if (!mFPMgr.isHardwareDetected()){
             mLSPrefScreen.removePreference(mFpCategory);
         }
+        mLockQSDisabled = (SecureSettingSwitchPreference) findPreference(LOCK_QS_DISABLED);
+        mLockQSDisabled.setOnPreferenceChangeListener(this);
 
         setHasOptionsMenu(true);
     }
@@ -164,8 +172,16 @@ public class LockscreenSettings extends DesoSettingsFragment implements OnPrefer
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.LOCKSCREEN_MAX_NOTIF_CONFIG, kgconf);
             return true;
+        } else if (preference == mLockQSDisabled) {
+            Helpers.restartSystemUI(mContext);
+            return true;
         }
          return false;
+    }
+
+    @Override
+    public void onResume() {
+         super.onResume();
     }
 
     @Override

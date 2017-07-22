@@ -350,8 +350,8 @@
     <string name="sysui_qqs_count_title">Small tiles number</string>
 
     <!-- Disable QS on secure Lockscreen -->
-    <string name="lockscreen_qs_disabled_title">No QS when secured</string>
-    <string name="lockscreen_qs_disabled_summary">Disable quick settings tiles on secured lockscreen</string>
+    <string name="lockscreen_qs_disabled_title">Disable QS On Secured Lockscreen</string>
+    <string name="lockscreen_qs_disabled_summary">Requires and Automatically restarts interface</string>
 
     <!-- Advanced tiles -->
     <string name="qs_advanced_data_title">Data easy toggle</string>
