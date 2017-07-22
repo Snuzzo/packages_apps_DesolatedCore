@@ -48,19 +48,20 @@ public class LockscreenSettings extends DesoSettingsFragment implements OnPrefer
     private static final String LOCKSCREEN_COLORS_RESET = "lockscreen_colors_reset";
     private static final String LOCKSCREEN_FP_CATEGORY = "fp_ls_category";
     private static final String LOCKSCREEN_PREF = "ls_preferences";
+    private static final String LOCKSCREEN_MAX_NOTIF_CONFIG = "lockscreen_max_notif_config";
+
     private ColorPickerPreference mLockscreenOwnerInfoColorPicker;
     private ColorPickerPreference mLockscreenAlarmColorPicker;
     private ColorPickerPreference mLockscreenClockColorPicker;
     private ColorPickerPreference mLockscreenClockDateColorPicker;
+    private CustomSeekBarPreference mMaxKeyguardNotifConfig;
     private Preference mLockscreenColorsReset;
     private FingerprintManager mFPMgr;
 
     private static final int MENU_RESET = Menu.FIRST;
     static final int DEFAULT = 0xffffffff;
 
-	private static final String LOCKSCREEN_MAX_NOTIF_CONFIG = "lockscreen_max_notif_cofig";
 
-	private CustomSeekBarPreference mMaxKeyguardNotifConfig;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

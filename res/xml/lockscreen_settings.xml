@@ -64,6 +64,19 @@
         android:title="@string/hide_lockscreen_date_title"
         android:defaultValue="true" />
 
+    <com.android.settings.preference.SystemSettingSwitchPreference
+        android:key="lock_screen_custom_notif"
+        android:title="@string/lockscreen_maxnotif_title"
+        android:summary="@string/lockscreen_maxnotif_sumary"
+        android:defaultValue="false" />
+
+    <com.deso.settings.preferences.CustomSeekBarPreference
+        android:key="lockscreen_max_notif_config"
+        android:title="@string/lockscreen_maxnotif_config"
+        settings:max="8"
+        settings:min="3"
+        android:dependency="lock_screen_custom_notif" />
+
 
     <!-- FP Unlock Options -->
     <PreferenceCategory
@@ -143,19 +156,6 @@
         android:defaultValue="true"/>
 
     </PreferenceCategory>
-
-    <com.android.settings.preference.SystemSettingSwitchPreference
-        android:key="lock_screen_custom_notif"
-        android:title="@string/lockscreen_maxnotif_title"
-        android:summary="@string/lockscreen_maxnotif_sumary"
-        android:defaultValue="false" />
-
- <com.deso.settings.preferences.CustomSeekBarPreference
-        android:key="lockscreen_max_notif_config"
-        android:title="@string/lockscreen_maxnotif_config"
-        settings:max="8"
-        settings:min="3"
-        android:dependency="lock_screen_custom_notif" />
 
 </PreferenceScreen>
 
