@@ -37,6 +37,8 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.preference.ColorPickerPreference;
 
+import com.deso.settings.preferences.CustomSeekBarPreference;
+
 public class LockscreenSettings extends DesoSettingsFragment implements OnPreferenceChangeListener {
 
     private static final String LOCKSCREEN_OWNER_INFO_COLOR = "lockscreen_owner_info_color";
@@ -55,6 +57,10 @@ public class LockscreenSettings extends DesoSettingsFragment implements OnPrefer
 
     private static final int MENU_RESET = Menu.FIRST;
     static final int DEFAULT = 0xffffffff;
+
+	private static final String LOCKSCREEN_MAX_NOTIF_CONFIG = "lockscreen_max_notif_cofig";
+
+	private CustomSeekBarPreference mMaxKeyguardNotifConfig;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,6 +111,12 @@ public class LockscreenSettings extends DesoSettingsFragment implements OnPrefer
 
         mFPMgr = (FingerprintManager) getActivity().getSystemService(Context.FINGERPRINT_SERVICE);
 
+        mMaxKeyguardNotifConfig = (CustomSeekBarPreference) findPreference(LOCKSCREEN_MAX_NOTIF_CONFIG);
+        int kgconf = Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_MAX_NOTIF_CONFIG, 5);
+        mMaxKeyguardNotifConfig.setValue(kgconf);
+        mMaxKeyguardNotifConfig.setOnPreferenceChangeListener(this);
+
         if (!mFPMgr.isHardwareDetected()){
             mLSPrefScreen.removePreference(mFpCategory);
         }
@@ -146,7 +158,12 @@ public class LockscreenSettings extends DesoSettingsFragment implements OnPrefer
             Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
                     Settings.System.LOCKSCREEN_CLOCK_DATE_COLOR, intHex);
             return true;
-         }
+        } else if (preference == mMaxKeyguardNotifConfig) {
+            int kgconf = (Integer) newValue;
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.LOCKSCREEN_MAX_NOTIF_CONFIG, kgconf);
+            return true;
+        }
          return false;
     }
 

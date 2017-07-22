@@ -1015,6 +1015,11 @@
     <!-- lock screen visualizer -->
     <string name="lockscreen_visualizer_title">Display music visualizer</string>
 
+    <!-- Lockscreen notif count -->
+    <string name="lockscreen_maxnotif_title">Lockscreen notification count</string>
+    <string name="lockscreen_maxnotif_sumary">Enable adjustment of max lockscreen notifications</string>
+    <string name="lockscreen_maxnotif_config">Max lockscreen notifications</string>
+
     <!-- Date + Time in header -->
     <string name="qs_date_time_center_title">Pulldown Date and Time</string>
     <string name="qs_date_time_center_summary">Center: requires 1 or more icons to be disabled</string>
