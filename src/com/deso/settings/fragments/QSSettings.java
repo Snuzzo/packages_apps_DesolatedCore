@@ -16,10 +16,12 @@
 
 package com.deso.settings.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.hardware.fingerprint.FingerprintManager;
 import android.os.Bundle;
 import android.os.UserHandle;
 import android.provider.Settings;
@@ -35,6 +37,7 @@ import android.support.v14.preference.SwitchPreference;
 
 import com.android.settings.R;
 import com.android.internal.util.tesla.TeslaUtils;
+import com.android.settings.preference.SystemSettingSwitchPreference;
 import com.deso.settings.preferences.CustomSeekBarPreference;
 import com.android.internal.logging.MetricsProto.MetricsEvent;
 
@@ -58,6 +61,7 @@ public class QSSettings extends DesoSettingsFragment implements
     private static final String QUICK_PULLDOWN = "quick_pulldown";
     private static final String PREF_SMART_PULLDOWN = "smart_pulldown";
     private static final String HEADER_TIME_DATE = "qs_date_time_center";
+    private static final String STATUS_BAR_QUICK_QS_PULLDOWN_FP = "status_bar_quick_qs_pulldown_fp";
 
     private CustomSeekBarPreference mSysuiQqsCount;
     private ListPreference mWeatherIconPack;
@@ -70,6 +74,8 @@ public class QSSettings extends DesoSettingsFragment implements
     private ListPreference mQuickPulldown;
     private ListPreference mSmartPulldown;
     private ListPreference mHeaderClock;
+    private FingerprintManager mFPMgr;
+    private SystemSettingSwitchPreference mFPPulldown;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -179,7 +185,16 @@ public class QSSettings extends DesoSettingsFragment implements
         int headerClockValue = Settings.System.getInt(getContentResolver(),
                 Settings.System.QS_DATE_TIME_CENTER , 1);
         mHeaderClock.setValue(String.valueOf(headerClockValue));
+
+        mFPPulldown = (SystemSettingSwitchPreference) findPreference(STATUS_BAR_QUICK_QS_PULLDOWN_FP);
+        mFPMgr = (FingerprintManager) getActivity().getSystemService(Context.FINGERPRINT_SERVICE);
+
+        if (!mFPMgr.isHardwareDetected()){
+            getPreferenceScreen().removePreference(mFPPulldown);
+        }
+
     }
+
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == mSysuiQqsCount) {
             int SysuiQqsCount = (Integer) newValue;

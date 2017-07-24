@@ -93,6 +93,11 @@
         android:entryValues="@array/smart_pulldown_values"
         android:persistent="false" />
 
+    <com.android.settings.preference.SystemSettingSwitchPreference
+        android:key="status_bar_quick_qs_pulldown_fp"
+        android:title="@string/fp_pulldown_title"
+        android:defaultValue="false" />
+
     <PreferenceCategory
         android:title="@string/qs_omnijaws_category">
 
