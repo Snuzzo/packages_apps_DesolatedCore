@@ -108,6 +108,15 @@
         android:defaultValue="false" />
 
     <ListPreference
+        android:key="pulse_charge_duration"
+        android:dialogTitle="@string/pulse_charge_duration_title"
+        android:title="@string/pulse_charge_duration_title"
+        android:entries="@array/pulse_charge_duration_entries"
+        android:entryValues="@array/pulse_charge_duration_values"
+        android:dependency="status_bar_pulse_charging_battery"
+        android:defaultValue="2000" />
+
+    <ListPreference
         android:key="text_charging_symbol"
         android:title="@string/text_charging_symbol_title"
         android:summary="%s"

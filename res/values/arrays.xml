@@ -872,4 +872,23 @@
         <item>9500</item>
         <item>10000</item>
      </string-array>
+
+     <string-array name="pulse_charge_duration_entries">
+        <item>@string/lv_dur_500</item>
+        <item>@string/lv_dur_1000</item>
+        <item>@string/lv_dur_1500</item>
+        <item>@string/lv_dur_2000</item>
+        <item>@string/lv_dur_2500</item>
+        <item>@string/lv_dur_3000</item>
+    </string-array>
+
+    <string-array name="pulse_charge_duration_values" translatable="false">
+        <item>500</item>
+        <item>1000</item>
+        <item>1500</item>
+        <item>2000</item>
+        <item>2500</item>
+        <item>3000</item>
+     </string-array>
+
 </resources>

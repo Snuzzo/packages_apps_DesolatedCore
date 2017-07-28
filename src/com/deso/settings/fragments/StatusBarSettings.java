@@ -49,6 +49,8 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
     private static final String WEATHER_SERVICE_PACKAGE = "org.omnirom.omnijaws";
     private static final String PREF_HEADS_UP_TIME_OUT = "heads_up_time_out";
     private static final String PREF_HEADS_UP_SNOOZE_TIME = "heads_up_snooze_time";
+    private static final String PULSE_CHARGING_DURATION = "pulse_charge_duration";
+
 
     private static final int STATUS_BAR_BATTERY_STYLE_PORTRAIT = 0;
     private static final int STATUS_BAR_BATTERY_STYLE_HIDDEN = 4;
@@ -66,6 +68,7 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
     private ListPreference mStatusBarWeather;
     private ListPreference mHeadsUpTimeOut;
     private ListPreference mHeadsUpSnoozeTime;
+    private ListPreference mPulseCharge;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -174,6 +177,13 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
         mHeadsUpSnoozeTime.setValue(String.valueOf(headsUpSnooze));
         updateHeadsUpSnoozeTimeSummary(headsUpSnooze);
 
+        mPulseCharge = (ListPreference) findPreference(PULSE_CHARGING_DURATION);
+        mPulseCharge.setOnPreferenceChangeListener(this);
+        int pulseChargeVal = Settings.System.getInt(getContentResolver(),
+                Settings.System.PULSE_CHARGING_DURATION, 2000);
+        mPulseCharge.setValue(String.valueOf(pulseChargeVal));
+        mPulseCharge.setSummary(mPulseCharge.getEntry());
+
         updateHeadsUpPref(headsupMode);
     }
 
@@ -266,6 +276,14 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
                     Settings.System.HEADS_UP_NOTIFICATION_SNOOZE,
                     headsUpSnooze);
             updateHeadsUpSnoozeTimeSummary(headsUpSnooze);
+            return true;
+       } else if (preference == mPulseCharge) {
+            int pulseVal = Integer.valueOf((String) newValue);
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.PULSE_CHARGING_DURATION,
+                    pulseVal);
+            mPulseCharge.setValue(String.valueOf(pulseVal));
+            mPulseCharge.setSummary(mPulseCharge.getEntry());
             return true;
        }
        return false;
