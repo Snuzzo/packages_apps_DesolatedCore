@@ -13,6 +13,11 @@
  -->
 
 <resources>
+    <color name="background_tab_pressed">@color/theme_accent</color>
+    <color name="Primary">@color/material_deep_teal_500</color>
+    <color name="PrimaryDark">@color/material_deep_teal_500</color>
+    <color name="Accent">@color/theme_accent</color>
+
     <color name="white">#FFF</color>
     <color name="material_deep_teal_500">@*android:color/material_deep_teal_500</color>
     <color name="icon_tint_color">@color/material_deep_teal_500</color>

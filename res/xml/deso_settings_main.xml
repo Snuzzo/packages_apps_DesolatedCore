@@ -19,30 +19,49 @@
         android:title="@string/deso_settings_title" >
 
     <PreferenceScreen
-            android:fragment="com.deso.settings.fragments.NotificationDrawerSettings"
-            android:key="cosmic_notification_drawer_settings"
-            android:title="@string/notification_drawer_settings_title"/>
-
-    <PreferenceScreen
-            android:fragment="com.deso.settings.fragments.StatusBarSettings"
+            android:fragment="com.deso.settings.tabs.StatusBarTab"
             android:key="deso_statusbar_settings"
             android:title="@string/statusbar_settings_title"/>
 
+    <PreferenceScreen
+            android:fragment="com.deso.settings.tabs.NavTab"
+            android:key="deso_navbar_settings"
+            android:title="@string/navigationbar_settings_title"/>
+
+<!--  Update this line as we complete them
+
+    <PreferenceScreen
+            android:fragment="com.deso.settings.tabs.QSPanelTab"
+            android:key="deso_statusbar_settings"
+            android:title="@string/statusbar_settings_title"/>
+
+    <PreferenceScreen
+            android:fragment="com.deso.settings.tabs.LockScreenTab"
+            android:key="deso_statusbar_settings"
+            android:title="@string/statusbar_settings_title"/>
+
+    <PreferenceScreen
+            android:fragment="com.deso.settings.tabs.Misc"
+            android:key="deso_statusbar_settings"
+            android:title="@string/statusbar_settings_title"/> -->
+
+    <PreferenceScreen
+            android:fragment="com.deso.settings.fragments.RecentsSettings"
+            android:key="deso_recents_settings"
+            android:title="@string/recents_settings_title"/>
+
+<!-- TODO: These sections will be moved later -->
 
     <PreferenceScreen
             android:fragment="com.deso.settings.fragments.LedSettings"
             android:key="deso_leds"
             android:title="@string/leds"/>
 
-    <PreferenceCategory
-        android:key="deso_buttons"
-        android:title="@string/deso_buttons">
-
-        <PreferenceScreen
+    <PreferenceScreen
             android:fragment="com.deso.settings.fragments.PowerMenuSettings"
             android:key="deso_powermenu_settings"
             android:title="@string/powermenu_settings_title"/>
 
-    </PreferenceCategory>
+<!-- sections to move --> 
 
 </PreferenceScreen>
