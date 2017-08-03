@@ -39,36 +39,17 @@ import com.android.settings.preference.ColorPickerPreference;
 public class StatusBarSettings extends DesoSettingsFragment implements Preference.OnPreferenceChangeListener {
 
     private static final String NOTIFICATION_MODE = "notification_mode";
-    private static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style";
-    private static final String STATUS_BAR_SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
-    private static final String STATUS_BAR_CHARGE_COLOR = "status_bar_charge_color";
-    private static final String FORCE_CHARGE_BATTERY_TEXT = "force_charge_battery_text";
-    private static final String TEXT_CHARGING_SYMBOL = "text_charging_symbol";
     private static final String PREF_STATUS_BAR_WEATHER = "status_bar_weather";
     private static final String PREF_CATEGORY_INDICATORS = "pref_cat_icons";
     private static final String WEATHER_SERVICE_PACKAGE = "org.omnirom.omnijaws";
     private static final String PREF_HEADS_UP_TIME_OUT = "heads_up_time_out";
     private static final String PREF_HEADS_UP_SNOOZE_TIME = "heads_up_snooze_time";
-    private static final String PULSE_CHARGING_DURATION = "pulse_charge_duration";
 
 
-    private static final int STATUS_BAR_BATTERY_STYLE_PORTRAIT = 0;
-    private static final int STATUS_BAR_BATTERY_STYLE_HIDDEN = 4;
-    private static final int STATUS_BAR_BATTERY_STYLE_TEXT = 6;
-
-    private ColorPickerPreference mChargeColor;
     private ListPreference mNotificationMode;
-    private ListPreference mStatusBarBattery;
-    private ListPreference mStatusBarBatteryShowPercent;
-    private int mStatusBarBatteryValue;
-    private int mStatusBarBatteryShowPercentValue;
-    private SwitchPreference mForceChargeBatteryText;
-    private ListPreference mTextChargingSymbol;
-    private int mTextChargingSymbolValue;
     private ListPreference mStatusBarWeather;
     private ListPreference mHeadsUpTimeOut;
     private ListPreference mHeadsUpSnoozeTime;
-    private ListPreference mPulseCharge;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -107,40 +88,6 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
         mNotificationMode.setValue(String.valueOf(notificationMode));
         mNotificationMode.setSummary(mNotificationMode.getEntry());
 
-        mForceChargeBatteryText = (SwitchPreference) findPreference(FORCE_CHARGE_BATTERY_TEXT);
-        mForceChargeBatteryText.setChecked((Settings.Secure.getInt(resolver,
-                Settings.Secure.FORCE_CHARGE_BATTERY_TEXT, 1) == 1));
-        mForceChargeBatteryText.setOnPreferenceChangeListener(this);
-
-        mStatusBarBattery = (ListPreference) findPreference(STATUS_BAR_BATTERY_STYLE);
-        mStatusBarBatteryValue = Settings.Secure.getInt(resolver,
-                Settings.Secure.STATUS_BAR_BATTERY_STYLE, 0);
-        mStatusBarBattery.setValue(Integer.toString(mStatusBarBatteryValue));
-        mStatusBarBattery.setSummary(mStatusBarBattery.getEntry());
-        mStatusBarBattery.setOnPreferenceChangeListener(this);
-
-        int chargeColor = Settings.Secure.getInt(resolver,
-                Settings.Secure.STATUS_BAR_CHARGE_COLOR, Color.WHITE);
-        mChargeColor = (ColorPickerPreference) findPreference(STATUS_BAR_CHARGE_COLOR);
-        mChargeColor.setNewPreviewColor(chargeColor);
-        mChargeColor.setOnPreferenceChangeListener(this);
-
-        mStatusBarBatteryShowPercent =
-                (ListPreference) findPreference(STATUS_BAR_SHOW_BATTERY_PERCENT);
-        mStatusBarBatteryShowPercentValue = Settings.Secure.getInt(resolver,
-                Settings.Secure.STATUS_BAR_SHOW_BATTERY_PERCENT, 0);
-        mStatusBarBatteryShowPercent.setValue(Integer.toString(mStatusBarBatteryShowPercentValue));
-        mStatusBarBatteryShowPercent.setSummary(mStatusBarBatteryShowPercent.getEntry());
-        mStatusBarBatteryShowPercent.setOnPreferenceChangeListener(this);
-
-        mTextChargingSymbol = (ListPreference) findPreference(TEXT_CHARGING_SYMBOL);
-        mTextChargingSymbolValue = Settings.Secure.getInt(resolver,
-                Settings.Secure.TEXT_CHARGING_SYMBOL, 0);
-        mTextChargingSymbol.setValue(Integer.toString(mTextChargingSymbolValue));
-        mTextChargingSymbol.setSummary(mTextChargingSymbol.getEntry());
-        mTextChargingSymbol.setOnPreferenceChangeListener(this);
-
-        enableStatusBarBatteryDependents();
 
         // Status bar weather
         mStatusBarWeather = (ListPreference) getPreferenceScreen().findPreference(PREF_STATUS_BAR_WEATHER);
@@ -177,13 +124,6 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
         mHeadsUpSnoozeTime.setValue(String.valueOf(headsUpSnooze));
         updateHeadsUpSnoozeTimeSummary(headsUpSnooze);
 
-        mPulseCharge = (ListPreference) findPreference(PULSE_CHARGING_DURATION);
-        mPulseCharge.setOnPreferenceChangeListener(this);
-        int pulseChargeVal = Settings.System.getInt(getContentResolver(),
-                Settings.System.PULSE_CHARGING_DURATION, 2000);
-        mPulseCharge.setValue(String.valueOf(pulseChargeVal));
-        mPulseCharge.setSummary(mPulseCharge.getEntry());
-
         updateHeadsUpPref(headsupMode);
     }
 
@@ -214,42 +154,6 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
                     mNotificationMode.getEntries()[index]);
             updateHeadsUpPref(headsupMode);
             return true;
-       } else if (preference.equals(mStatusBarBattery)) {
-            mStatusBarBatteryValue = Integer.valueOf((String) newValue);
-            int index = mStatusBarBattery.findIndexOfValue((String) newValue);
-            mStatusBarBattery.setSummary(
-                    mStatusBarBattery.getEntries()[index]);
-            Settings.Secure.putInt(getContentResolver(),
-                    Settings.Secure.STATUS_BAR_BATTERY_STYLE, mStatusBarBatteryValue);
-            enableStatusBarBatteryDependents();
-            return true;
-        } else if (preference == mStatusBarBatteryShowPercent) {
-            mStatusBarBatteryShowPercentValue = Integer.valueOf((String) newValue);
-            int index = mStatusBarBatteryShowPercent.findIndexOfValue((String) newValue);
-            mStatusBarBatteryShowPercent.setSummary(
-                    mStatusBarBatteryShowPercent.getEntries()[index]);
-            Settings.Secure.putInt(getContentResolver(),
-                    Settings.Secure.STATUS_BAR_SHOW_BATTERY_PERCENT, mStatusBarBatteryShowPercentValue);
-            enableStatusBarBatteryDependents();
-            return true;
-        } else if  (preference == mForceChargeBatteryText) {
-            boolean checked = ((SwitchPreference)preference).isChecked();
-            Settings.Secure.putInt(getContentResolver(),
-                    Settings.Secure.FORCE_CHARGE_BATTERY_TEXT, checked ? 1:0);
-            return true;
-        } else if (preference.equals(mChargeColor)) {
-            int color = ((Integer) newValue).intValue();
-            Settings.Secure.putInt(getContentResolver(),
-                    Settings.Secure.STATUS_BAR_CHARGE_COLOR, color);
-            return true;
-        } else if (preference == mTextChargingSymbol) {
-            mTextChargingSymbolValue = Integer.valueOf((String) newValue);
-            int index = mTextChargingSymbol.findIndexOfValue((String) newValue);
-            mTextChargingSymbol.setSummary(
-                    mTextChargingSymbol.getEntries()[index]);
-            Settings.Secure.putInt(getContentResolver(),
-                    Settings.Secure.TEXT_CHARGING_SYMBOL, mTextChargingSymbolValue);
-            return true;
        } else if (preference == mStatusBarWeather) {
             int temperatureShow = Integer.valueOf((String) newValue);
             int index = mStatusBarWeather.findIndexOfValue((String) newValue);
@@ -276,14 +180,6 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
                     Settings.System.HEADS_UP_NOTIFICATION_SNOOZE,
                     headsUpSnooze);
             updateHeadsUpSnoozeTimeSummary(headsUpSnooze);
-            return true;
-       } else if (preference == mPulseCharge) {
-            int pulseVal = Integer.valueOf((String) newValue);
-            Settings.System.putInt(getContentResolver(),
-                    Settings.System.PULSE_CHARGING_DURATION,
-                    pulseVal);
-            mPulseCharge.setValue(String.valueOf(pulseVal));
-            mPulseCharge.setSummary(mPulseCharge.getEntry());
             return true;
        }
        return false;
@@ -313,30 +209,6 @@ public class StatusBarSettings extends DesoSettingsFragment implements Preferenc
         } else {
             mHeadsUpTimeOut.setEnabled(true);
             mHeadsUpSnoozeTime.setEnabled(true);
-        }
-    }
-
-    private void enableStatusBarBatteryDependents() {
-        if (mStatusBarBatteryValue == STATUS_BAR_BATTERY_STYLE_HIDDEN) {
-            mStatusBarBatteryShowPercent.setEnabled(false);
-            mForceChargeBatteryText.setEnabled(false);
-            mChargeColor.setEnabled(false);
-            mTextChargingSymbol.setEnabled(false);
-        } else if (mStatusBarBatteryValue == STATUS_BAR_BATTERY_STYLE_TEXT) {
-            mStatusBarBatteryShowPercent.setEnabled(false);
-            mForceChargeBatteryText.setEnabled(false);
-            mChargeColor.setEnabled(false);
-            mTextChargingSymbol.setEnabled(true);
-        } else if (mStatusBarBatteryValue == STATUS_BAR_BATTERY_STYLE_PORTRAIT) {
-            mStatusBarBatteryShowPercent.setEnabled(true);
-            mChargeColor.setEnabled(true);
-            mForceChargeBatteryText.setEnabled(mStatusBarBatteryShowPercentValue == 2 ? false : true);
-            mTextChargingSymbol.setEnabled(true);
-        } else {
-            mStatusBarBatteryShowPercent.setEnabled(true);
-            mChargeColor.setEnabled(true);
-            mForceChargeBatteryText.setEnabled(mStatusBarBatteryShowPercentValue == 2 ? false : true);
-            mTextChargingSymbol.setEnabled(true);
         }
     }
 }

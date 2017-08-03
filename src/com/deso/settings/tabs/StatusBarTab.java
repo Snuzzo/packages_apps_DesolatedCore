@@ -42,8 +42,10 @@ import java.util.ArrayList;
 
 import com.deso.settings.PagerSlidingTabStrip;
 import com.deso.settings.fragments.StatusBarSettings;
+import com.deso.settings.fragments.BatteryStyles;
 import com.deso.settings.fragments.ClockSettings;
-
+import com.deso.settings.fragments.CarrierLabelSettings;
+import com.deso.settings.fragments.NetworkTraffic;
 
 import com.android.settings.R;
 import com.android.internal.logging.MetricsProto.MetricsEvent;
@@ -88,7 +90,10 @@ public class StatusBarTab extends SettingsPreferenceFragment {
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
             frags[0] = new StatusBarSettings();
-            frags[1] = new ClockSettings();
+            frags[1] = new BatteryStyles();
+            frags[2] = new ClockSettings();
+            frags[3] = new CarrierLabelSettings();
+            frags[4] = new NetworkTraffic();
         }
 
         @Override
@@ -111,7 +116,10 @@ public class StatusBarTab extends SettingsPreferenceFragment {
         String titleString[];
         titleString = new String[]{
                 getString(R.string.statusbar_settings_title),
-                getString(R.string.clock_settings_title)};
+                getString(R.string.battery_settings_title),
+                getString(R.string.clock_settings_title),
+                getString(R.string.carrier_label_settings_title),
+                getString(R.string.network_traffic_title)};
 
         return titleString;
     }
