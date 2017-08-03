@@ -19,6 +19,10 @@ package com.deso.settings;
 
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceScreen;
+import android.widget.ImageView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.android.internal.logging.MetricsProto.MetricsEvent;
 
@@ -26,11 +30,34 @@ import com.android.settings.SettingsPreferenceFragment;
 
 public class DesoSettings extends SettingsPreferenceFragment {
 
+    private View mView;
+
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         addPreferencesFromResource(R.xml.deso_settings_main);
         PreferenceScreen prefScreen = getPreferenceScreen();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        super.onCreateView(inflater, container, savedInstanceState);
+
+        //just testing to see if the imageview can be accessed.
+        mView = inflater.inflate(R.layout.header_view, container, false);
+        return mView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle saveState) {
+        super.onSaveInstanceState(saveState);
     }
 
     @Override
