@@ -786,6 +786,7 @@
     <string name="pref_scrollingcache_force_disable">Force disable</string>
 
     <!-- Battery Bar -->
+    <string name="battery_settings_title">Battery</string>
     <string name="battery_bar_title">Battery bar</string>
     <string name="battery_bar">Battery bar location</string>
     <string name="battery_bar_no_navbar">Battery bar location</string>
