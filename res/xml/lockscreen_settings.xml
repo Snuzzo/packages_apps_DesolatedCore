@@ -33,12 +33,6 @@
         android:summary="@string/lockscreen_dt2s_summary" />
 
     <com.android.settings.preference.SystemSettingSwitchPreference
-        android:key="lockscreen_media_metadata"
-        android:title="@string/media_art_title"
-        android:summary="@string/media_art_summary"
-        android:defaultValue="true" />
-
-    <com.android.settings.preference.SystemSettingSwitchPreference
         android:key="power_menu_lockscreen"
         android:title="@string/powermenu_lockscreen_title"
         android:summary="@string/powermenu_lockscreen_summary"
@@ -49,20 +43,6 @@
         android:title="@string/lockscreen_qs_disabled_title"
         android:summary="@string/lockscreen_qs_disabled_summary" />
 
-        <!-- Hide Lockscreen clock & date -->
-    <PreferenceCategory
-        android:key="hide_lockscreen_items_category"
-        android:title="@string/hide_lockscreen_items_title" />
-
-    <com.android.settings.preference.SystemSettingSwitchPreference
-        android:key="hide_lockscreen_clock"
-        android:title="@string/hide_lockscreen_clock_title"
-        android:defaultValue="true" />
-
-    <com.android.settings.preference.SystemSettingSwitchPreference
-        android:key="hide_lockscreen_date"
-        android:title="@string/hide_lockscreen_date_title"
-        android:defaultValue="true" />
 
     <com.android.settings.preference.SystemSettingSwitchPreference
         android:key="lock_screen_custom_notif"
@@ -97,39 +77,6 @@
 
     </PreferenceCategory>
 
-
-    <!-- Lockscreen colors -->
-    <PreferenceCategory
-            android:key="lockscreen_colors_category"
-            android:title="@string/lockscreen_colors_title" >
-
-        <com.android.settings.preference.ColorPickerPreference
-            android:key="lockscreen_owner_info_color"
-            android:title="@string/lockscreen_owner_info_color"
-            android:defaultValue="0xffffffff" />
-
-        <com.android.settings.preference.ColorPickerPreference
-            android:key="lockscreen_alarm_color"
-            android:title="@string/lockscreen_alarm_color"
-            android:defaultValue="0xffffffff" />
-
-        <com.android.settings.preference.ColorPickerPreference
-            android:key="lockscreen_clock_color"
-            android:title="@string/lockscreen_clock_color"
-            android:dependency="hide_lockscreen_clock"
-            android:defaultValue="0xffffffff" />
-
-        <com.android.settings.preference.ColorPickerPreference
-            android:key="lockscreen_clock_date_color"
-            android:title="@string/lockscreen_clock_date_color"
-            android:defaultValue="0xffffffff" />
-
-        <Preference
-            android:key="lockscreen_colors_reset"
-            android:title="@string/lockscreen_colors_reset_title" />
-
-    </PreferenceCategory>
-
     <PreferenceScreen
         android:key="lockscreen_shortcuts"
         android:fragment="com.deso.settings.dslv.ActionListViewSettings"
@@ -145,17 +92,6 @@
         android:key="lockscreen_shortcuts_longpress"
         android:title="@string/lockscreen_shorcuts_longpress_title"
         android:summary="@string/lockscreen_shorcuts_longpress_summary" />
-
-    <PreferenceCategory
-        android:key="lockscreen_ui_music_category"
-        android:title="@string/music_category">
-
-    <com.android.settings.preference.SecureSettingSwitchPreference
-        android:key="lockscreen_visualizer"
-        android:title="@string/lockscreen_visualizer_title"
-        android:defaultValue="true"/>
-
-    </PreferenceCategory>
 
 </PreferenceScreen>
 

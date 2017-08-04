@@ -48,19 +48,20 @@
             android:key="deso_misc_settings"
             android:title="@string/misc_settings_title"/>
 
-
-<!--  Update this line as we complete them
-
     <PreferenceScreen
-            android:fragment="com.deso.settings.tabs.LockScreenTab"
-            android:key="deso_statusbar_settings"
-            android:title="@string/statusbar_settings_title"/> -->
-
+            android:fragment="com.deso.settings.tabs.LSTab"
+            android:key="deso_lockscreen_settings"
+            android:title="@string/lockscreen_settings_title"/>
 
     <PreferenceScreen
             android:fragment="com.deso.settings.fragments.RecentsSettings"
             android:key="deso_recents_settings"
             android:title="@string/recents_settings_title"/>
+
+    <PreferenceScreen
+        android:key="blur_category"
+        android:title="@string/blur_settings"
+        android:fragment="com.deso.settings.fragments.BlurPersonalizations" />
 
 <!-- TODO: These sections will be moved later -->
 
@@ -70,9 +71,5 @@
             android:title="@string/leds"/>
 <!-- sections to move --> 
 
-    <PreferenceScreen
-        android:key="blur_category"
-        android:title="@string/blur_settings"
-        android:fragment="com.deso.settings.fragments.BlurPersonalizations" />
 
 </PreferenceScreen>

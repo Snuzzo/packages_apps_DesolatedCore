@@ -35,85 +35,38 @@ import android.view.MenuInflater;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import com.android.settings.preference.ColorPickerPreference;
 import com.android.settings.preference.SecureSettingSwitchPreference;
-
+import com.android.internal.logging.MetricsProto.MetricsEvent;
 import com.deso.settings.preferences.CustomSeekBarPreference;
 
 import com.android.internal.util.deso.Helpers;
 
-public class LockscreenSettings extends DesoSettingsFragment implements OnPreferenceChangeListener {
+public class LockscreenSettings extends SettingsPreferenceFragment implements OnPreferenceChangeListener {
 
-    private static final String LOCKSCREEN_OWNER_INFO_COLOR = "lockscreen_owner_info_color";
-    private static final String LOCKSCREEN_ALARM_COLOR = "lockscreen_alarm_color";
-    private static final String LOCKSCREEN_CLOCK_COLOR = "lockscreen_clock_color";
-    private static final String LOCKSCREEN_CLOCK_DATE_COLOR = "lockscreen_clock_date_color";
-    private static final String LOCKSCREEN_COLORS_RESET = "lockscreen_colors_reset";
     private static final String LOCKSCREEN_FP_CATEGORY = "fp_ls_category";
     private static final String LOCKSCREEN_PREF = "ls_preferences";
     private static final String LOCKSCREEN_MAX_NOTIF_CONFIG = "lockscreen_max_notif_config";
     private static final String LOCK_QS_DISABLED = "lockscreen_qs_disabled";
+    private static final String PREF_LOCKSCREEN_SHORTCUTS_LONGPRESS = "lockscreen_shortcuts_longpress";
 
-    private ColorPickerPreference mLockscreenOwnerInfoColorPicker;
-    private ColorPickerPreference mLockscreenAlarmColorPicker;
-    private ColorPickerPreference mLockscreenClockColorPicker;
-    private ColorPickerPreference mLockscreenClockDateColorPicker;
     private Context mContext;
     private CustomSeekBarPreference mMaxKeyguardNotifConfig;
     private Preference mLockscreenColorsReset;
     private FingerprintManager mFPMgr;
     private SecureSettingSwitchPreference mLockQSDisabled;
-    private static final int MENU_RESET = Menu.FIRST;
-    static final int DEFAULT = 0xffffffff;
-
+    private SwitchPreference mLockscreenShortcutsLongpress;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        title = getResources().getString(R.string.lockscreen_settings_title);
         addPreferencesFromResource(R.xml.lockscreen_settings);
 
         ContentResolver resolver = getActivity().getContentResolver();
         PreferenceScreen mLSPrefScreen = (PreferenceScreen) findPreference(LOCKSCREEN_PREF);
         // LockscreenColors
-        int intColor;
-        String hexColor;
         mContext = getActivity().getApplicationContext();
 
-        mLockscreenOwnerInfoColorPicker = (ColorPickerPreference) findPreference(LOCKSCREEN_OWNER_INFO_COLOR);
-        mLockscreenOwnerInfoColorPicker.setOnPreferenceChangeListener(this);
-        intColor = Settings.System.getInt(resolver,
-                    Settings.System.LOCKSCREEN_OWNER_INFO_COLOR, DEFAULT);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mLockscreenOwnerInfoColorPicker.setSummary(hexColor);
-        mLockscreenOwnerInfoColorPicker.setNewPreviewColor(intColor);
-
-        mLockscreenAlarmColorPicker = (ColorPickerPreference) findPreference(LOCKSCREEN_ALARM_COLOR);
-        mLockscreenAlarmColorPicker.setOnPreferenceChangeListener(this);
-        intColor = Settings.System.getInt(resolver,
-                    Settings.System.LOCKSCREEN_ALARM_COLOR, DEFAULT);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mLockscreenAlarmColorPicker.setSummary(hexColor);
-        mLockscreenAlarmColorPicker.setNewPreviewColor(intColor);
-
-        mLockscreenClockColorPicker = (ColorPickerPreference) findPreference(LOCKSCREEN_CLOCK_COLOR);
-        mLockscreenClockColorPicker.setOnPreferenceChangeListener(this);
-        intColor = Settings.System.getInt(resolver,
-                    Settings.System.LOCKSCREEN_CLOCK_COLOR, DEFAULT);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mLockscreenClockColorPicker.setSummary(hexColor);
-        mLockscreenClockColorPicker.setNewPreviewColor(intColor);
-
-        mLockscreenClockDateColorPicker = (ColorPickerPreference) findPreference(LOCKSCREEN_CLOCK_DATE_COLOR);
-        mLockscreenClockDateColorPicker.setOnPreferenceChangeListener(this);
-        intColor = Settings.System.getInt(resolver,
-                    Settings.System.LOCKSCREEN_CLOCK_DATE_COLOR, DEFAULT);
-        hexColor = String.format("#%08x", (0xffffffff & intColor));
-        mLockscreenClockDateColorPicker.setSummary(hexColor);
-        mLockscreenClockDateColorPicker.setNewPreviewColor(intColor);
-
-        mLockscreenColorsReset = (Preference) findPreference(LOCKSCREEN_COLORS_RESET);
         PreferenceCategory mFpCategory = (PreferenceCategory) findPreference(LOCKSCREEN_FP_CATEGORY);
 
         mFPMgr = (FingerprintManager) getActivity().getSystemService(Context.FINGERPRINT_SERVICE);
@@ -123,6 +76,12 @@ public class LockscreenSettings extends DesoSettingsFragment implements OnPrefer
                 Settings.System.LOCKSCREEN_MAX_NOTIF_CONFIG, 5);
         mMaxKeyguardNotifConfig.setValue(kgconf);
         mMaxKeyguardNotifConfig.setOnPreferenceChangeListener(this);
+
+        mLockscreenShortcutsLongpress = (SwitchPreference) findPreference(
+                PREF_LOCKSCREEN_SHORTCUTS_LONGPRESS);
+        mLockscreenShortcutsLongpress.setChecked(Settings.System.getInt(getContentResolver(),
+                Settings.System.LOCKSCREEN_SHORTCUTS_LONGPRESS, 1) == 1);
+        mLockscreenShortcutsLongpress.setOnPreferenceChangeListener(this);
 
         if (!mFPMgr.isHardwareDetected()){
             mLSPrefScreen.removePreference(mFpCategory);
@@ -135,39 +94,7 @@ public class LockscreenSettings extends DesoSettingsFragment implements OnPrefer
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         ContentResolver resolver = getActivity().getContentResolver();
-        if (preference == mLockscreenOwnerInfoColorPicker) {
-            String hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.LOCKSCREEN_OWNER_INFO_COLOR, intHex);
-            return true;
-        } else if (preference == mLockscreenAlarmColorPicker) {
-            String hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.LOCKSCREEN_ALARM_COLOR, intHex);
-            return true;
-        } else if (preference == mLockscreenClockColorPicker) {
-            String hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.LOCKSCREEN_CLOCK_COLOR, intHex);
-            return true;
-        } else if (preference == mLockscreenClockDateColorPicker) {
-            String hex = ColorPickerPreference.convertToARGB(
-                    Integer.valueOf(String.valueOf(newValue)));
-            preference.setSummary(hex);
-            int intHex = ColorPickerPreference.convertToColorInt(hex);
-            Settings.System.putInt(getActivity().getApplicationContext().getContentResolver(),
-                    Settings.System.LOCKSCREEN_CLOCK_DATE_COLOR, intHex);
-            return true;
-        } else if (preference == mMaxKeyguardNotifConfig) {
+        if (preference == mMaxKeyguardNotifConfig) {
             int kgconf = (Integer) newValue;
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.LOCKSCREEN_MAX_NOTIF_CONFIG, kgconf);
@@ -175,8 +102,13 @@ public class LockscreenSettings extends DesoSettingsFragment implements OnPrefer
         } else if (preference == mLockQSDisabled) {
             Helpers.restartSystemUI(mContext);
             return true;
+        } else if (preference == mLockscreenShortcutsLongpress) {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.LOCKSCREEN_SHORTCUTS_LONGPRESS,
+                    (Boolean) newValue ? 1 : 0);
+            return true;
         }
-         return false;
+        return false;
     }
 
     @Override
@@ -185,54 +117,8 @@ public class LockscreenSettings extends DesoSettingsFragment implements OnPrefer
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.add(0, MENU_RESET, 0, R.string.reset)
-                .setIcon(com.android.internal.R.drawable.ic_menu_refresh)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case MENU_RESET:
-                resetToDefault();
-                return true;
-            default:
-                return super.onContextItemSelected(item);
-        }
-    }
-
-    private void resetToDefault() {
-         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-         alertDialog.setTitle(R.string.lockscreen_colors_reset_title);
-         alertDialog.setMessage(R.string.lockscreen_colors_reset_message);
-         alertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-             public void onClick(DialogInterface dialog, int id) {
-                 resetValues();
-             }
-         });
-         alertDialog.setNegativeButton(R.string.cancel, null);
-         alertDialog.create().show();
-    }
-
-    private void resetValues() {
-         ContentResolver resolver = getActivity().getContentResolver();
-         Settings.System.putInt(resolver,
-                 Settings.System.LOCKSCREEN_OWNER_INFO_COLOR, DEFAULT);
-         mLockscreenOwnerInfoColorPicker.setNewPreviewColor(DEFAULT);
-         mLockscreenOwnerInfoColorPicker.setSummary(R.string.default_string);
-         Settings.System.putInt(resolver,
-                 Settings.System.LOCKSCREEN_ALARM_COLOR, DEFAULT);
-         mLockscreenAlarmColorPicker.setNewPreviewColor(DEFAULT);
-         mLockscreenAlarmColorPicker.setSummary(R.string.default_string);
-         Settings.System.putInt(resolver,
-                 Settings.System.LOCKSCREEN_CLOCK_COLOR, DEFAULT);
-         mLockscreenClockColorPicker.setNewPreviewColor(DEFAULT);
-         mLockscreenClockColorPicker.setSummary(R.string.default_string);
-         Settings.System.putInt(resolver,
-                 Settings.System.LOCKSCREEN_CLOCK_DATE_COLOR, DEFAULT);
-         mLockscreenClockDateColorPicker.setNewPreviewColor(DEFAULT);
-         mLockscreenClockDateColorPicker.setSummary(R.string.default_string);
+    protected int getMetricsCategory() {
+        return MetricsEvent.DESO;
     }
 
 }

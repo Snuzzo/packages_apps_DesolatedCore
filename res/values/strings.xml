@@ -550,7 +550,7 @@
     <string name="lockscreen_bottom_summary">Customize the swipe shortcuts at the bottom of the lockscreen</string>
 
     <!-- Lockscreen Colors -->
-    <string name="lockscreen_colors_title">Lockscreen colors</string>
+    <string name="lockscreen_colors_title">Colors</string>
     <string name="lockscreen_owner_info_color">Owner info</string>
     <string name="lockscreen_alarm_color">Alarm</string>
     <string name="lockscreen_clock_color">Clock</string>
@@ -560,7 +560,7 @@
     <string name="yes">YES</string>
 
     <!-- Hide Lockscreen clock & date -->
-    <string name="hide_lockscreen_items_title">Lockscreen items</string>
+    <string name="hide_lockscreen_items_title">Items</string>
     <string name="hide_lockscreen_clock_title">Show lockscreen clock</string>
     <string name="hide_lockscreen_date_title">Show lockscreen date</string>
 
@@ -772,6 +772,7 @@
 
     <string name="lockscreen_torch_title">Lockscreen Torch</string>
     <string name="lockscreen_torch_summary">Press and hold the power button with the screen off to turn on flashlight</string>
+    <string name="lockscreen_options_title">Options</string>
     <string name="lockscreen_settings_title">Lock Screen</string>
     <string name="lockscreen_charging_current_title">Lockscreen Charging Current</string>
     <string name="lockscreen_charging_current_summary">Show charging current on bottom of lock screen</string>
