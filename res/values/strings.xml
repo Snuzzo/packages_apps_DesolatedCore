@@ -15,13 +15,15 @@
 
     <string name="qs_tiles_title">Tiles</string>
     <string name="qs_panel_title">Panel</string>
-    <string name="qs_settings_title">Quick Settings</string>
 
     <string name="qs_tile_title_visibility_title">QS tile titles</string>
     <string name="qs_tile_title_visibility_summary_on">QS tiles titles are now visible</string>
     <string name="qs_tile_title_visibility_summary_off">QS tiles titles are now gone</string>
 
     <!-- Categories -->
+    <string name="qs_settings_title">Quick Settings</string>
+    <string name="notif_settings_title">Notifications</string>
+    <string name="weather_header_category">Weather</string>
     <string name="button_settings">Buttons</string>
     <string name="qs_omnijaws_category">Weather QS tile</string>
     <string name="quicksettings_category">Quick settings</string>
@@ -37,6 +39,7 @@
     <string name="navbar_size">Bar size</string>
     <string name="navbar_mode">Navigation mode</string>
     <string name="navbar_visibility">Enable navigation bar</string>
+    <string name="navigationbar_tab_title">Navigation</string>
     <string name="navigationbar_settings_title">Device Interaction</string>
     <string name="navigationbar_settings_summary">Customize navigation style and behavior</string>
     <string name="navbar_general_title">Advanced</string>

@@ -31,27 +31,6 @@
         android:title="@string/status_bar_notif_count_title"
         android:summary="@string/status_bar_notif_count_summary" />
 
-    <ListPreference
-        android:entries="@array/notification_mode_entries"
-        android:entryValues="@array/notification_mode_values"
-        android:key="notification_mode"
-        android:summary="%s"
-        android:title="@string/notification_mode_title" />
-
-    <ListPreference
-        android:key="heads_up_time_out"
-        android:title="@string/heads_up_time_out_title"
-        android:entries="@array/heads_up_time_out_entries"
-        android:entryValues="@array/heads_up_time_out_values"
-        android:persistent="false" />
-
-    <ListPreference
-        android:key="heads_up_snooze_time"
-        android:title="@string/heads_up_snooze_title"
-        android:entries="@array/heads_up_snooze_entries"
-        android:entryValues="@array/heads_up_snooze_values"
-        android:persistent="false" />
-
     <PreferenceScreen
             android:title="@string/status_bar_icon_blacklist_title"
             android:summary="@string/status_bar_icon_blacklist_summary">

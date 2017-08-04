@@ -30,7 +30,7 @@ import com.android.internal.logging.MetricsProto.MetricsEvent;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
-public class NotificationDrawerSettings extends DesoSettingsFragment {
+public class NotificationSettings extends DesoSettingsFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

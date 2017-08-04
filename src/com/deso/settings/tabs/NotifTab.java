@@ -41,15 +41,14 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import com.deso.settings.PagerSlidingTabStrip;
-import com.deso.settings.fragments.NavbarSettings;
-import com.deso.settings.fragments.ButtonSettings;
-import com.deso.settings.fragments.PulseSettings;
+import com.deso.settings.fragments.HeadsUpSettings;
+import com.deso.settings.fragments.NotificationSettings;
 
 import com.android.settings.R;
 import com.android.internal.logging.MetricsProto.MetricsEvent;
 import com.android.settings.SettingsPreferenceFragment;
 
-public class NavTab extends SettingsPreferenceFragment {
+public class NotifTab extends SettingsPreferenceFragment {
 
     ViewPager mViewPager;
     ViewGroup mContainer;
@@ -59,9 +58,9 @@ public class NavTab extends SettingsPreferenceFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContainer = container;
 
-        View view = inflater.inflate(R.layout.navigation_layout, container, false);
-        mViewPager = (ViewPager) view.findViewById(R.id.navtab_viewpager);
-        mTabs = (PagerSlidingTabStrip) view.findViewById(R.id.navtab_tabs);
+        View view = inflater.inflate(R.layout.notif_layout, container, false);
+        mViewPager = (ViewPager) view.findViewById(R.id.notiftab_viewpager);
+        mTabs = (PagerSlidingTabStrip) view.findViewById(R.id.notiftab_tabs);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mTabs.setViewPager(mViewPager);
@@ -87,9 +86,8 @@ public class NavTab extends SettingsPreferenceFragment {
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
-            frags[0] = new NavbarSettings();
-            frags[1] = new ButtonSettings();
-            frags[2] = new PulseSettings();
+            frags[0] = new HeadsUpSettings();
+            frags[1] = new NotificationSettings();
         }
 
         @Override
@@ -111,9 +109,8 @@ public class NavTab extends SettingsPreferenceFragment {
     private String[] getTitles() {
         String titleString[];
         titleString = new String[]{
-                getString(R.string.navigationbar_tab_title),
-                getString(R.string.button_settings),
-                getString(R.string.pulse_settings)};
+                getString(R.string.headsup_enabled),
+                getString(R.string.misc_settings_title)};
         return titleString;
     }
 

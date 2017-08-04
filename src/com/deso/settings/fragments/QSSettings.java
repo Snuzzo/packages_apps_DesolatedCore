@@ -48,10 +48,6 @@ public class QSSettings extends DesoSettingsFragment implements
         Preference.OnPreferenceChangeListener {
 
     private static final String CATEGORY_WEATHER = "weather_category";
-    private static final String WEATHER_ICON_PACK = "weather_icon_pack";
-    private static final String DEFAULT_WEATHER_ICON_PACKAGE = "org.omnirom.omnijaws";
-    private static final String WEATHER_SERVICE_PACKAGE = "org.omnirom.omnijaws";
-    private static final String CHRONUS_ICON_PACK_INTENT = "com.dvtonder.chronus.ICON_PACK";
     private static final String DAYLIGHT_HEADER_PACK = "daylight_header_pack";
     private static final String DEFAULT_HEADER_PACKAGE = "com.android.systemui";
     private static final String CUSTOM_HEADER_IMAGE_SHADOW = "status_bar_custom_header_shadow";
@@ -62,8 +58,6 @@ public class QSSettings extends DesoSettingsFragment implements
     private static final String HEADER_TIME_DATE = "qs_date_time_center";
     private static final String STATUS_BAR_QUICK_QS_PULLDOWN_FP = "status_bar_quick_qs_pulldown_fp";
 
-    private ListPreference mWeatherIconPack;
-    private PreferenceCategory mWeatherCategory;
     private ListPreference mDaylightHeaderPack;
     private CustomSeekBarPreference mHeaderShadow;
     private ListPreference mHeaderProvider;
@@ -130,35 +124,6 @@ public class QSSettings extends DesoSettingsFragment implements
         mHeaderBrowse = (PreferenceScreen) findPreference(CUSTOM_HEADER_BROWSE);
         mHeaderBrowse.setEnabled(isBrowseHeaderAvailable());
 
-        mWeatherCategory = (PreferenceCategory) findPreference(CATEGORY_WEATHER);
-        if (mWeatherCategory != null && !isOmniJawsServiceInstalled()) {
-            getPreferenceScreen().removePreference(mWeatherCategory);
-        } else {
-            String settingJawsPackage = Settings.System.getString(getContentResolver(),
-                    Settings.System.OMNIJAWS_WEATHER_ICON_PACK);
-            if (settingJawsPackage == null) {
-                settingJawsPackage = DEFAULT_WEATHER_ICON_PACKAGE;
-            }
-            mWeatherIconPack = (ListPreference) findPreference(WEATHER_ICON_PACK);
-
-            List<String> jawsentries = new ArrayList<String>();
-            List<String> jawsvalues = new ArrayList<String>();
-            getAvailableWeatherIconPacks(jawsentries, jawsvalues);
-            mWeatherIconPack.setEntries(jawsentries.toArray(new String[jawsentries.size()]));
-            mWeatherIconPack.setEntryValues(jawsvalues.toArray(new String[jawsvalues.size()]));
-
-            int jawsvalueIndex = mWeatherIconPack.findIndexOfValue(settingJawsPackage);
-            if (jawsvalueIndex == -1) {
-                // no longer found
-                settingJawsPackage = DEFAULT_WEATHER_ICON_PACKAGE;
-                Settings.System.putString(getContentResolver(),
-                        Settings.System.OMNIJAWS_WEATHER_ICON_PACK, settingJawsPackage);
-                jawsvalueIndex = mWeatherIconPack.findIndexOfValue(settingJawsPackage);
-            }
-            mWeatherIconPack.setValueIndex(jawsvalueIndex >= 0 ? jawsvalueIndex : 0);
-            mWeatherIconPack.setSummary(mWeatherIconPack.getEntry());
-            mWeatherIconPack.setOnPreferenceChangeListener(this);
-        }
         mQuickPulldown = (ListPreference) findPreference(QUICK_PULLDOWN);
         mQuickPulldown.setOnPreferenceChangeListener(this);
         int quickPulldownValue = Settings.System.getIntForUser(getContentResolver(),
@@ -209,13 +174,6 @@ public class QSSettings extends DesoSettingsFragment implements
             mHeaderProvider.setSummary(mHeaderProvider.getEntries()[valueIndex]);
             mDaylightHeaderPack.setEnabled(value.equals(mDaylightHeaderProvider));
             return true;
-        } else if (preference == mWeatherIconPack) {
-            String value = (String) newValue;
-            Settings.System.putString(getContentResolver(),
-                    Settings.System.OMNIJAWS_WEATHER_ICON_PACK, value);
-            int valueIndex = mWeatherIconPack.findIndexOfValue(value);
-            mWeatherIconPack.setSummary(mWeatherIconPack.getEntries()[valueIndex]);
-            return true;
         } else if (preference == mQuickPulldown) {
             int quickPulldownValue = Integer.valueOf((String) newValue);
             Settings.System.putIntForUser(getContentResolver(), Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN,
@@ -248,44 +206,6 @@ public class QSSettings extends DesoSettingsFragment implements
                     ? R.string.smart_pulldown_dismissable
                     : R.string.smart_pulldown_ongoing);
             mSmartPulldown.setSummary(res.getString(R.string.smart_pulldown_summary, type));
-        }
-    }
-
-    private boolean isOmniJawsServiceInstalled() {
-        return TeslaUtils.isPackageInstalled(getActivity(), WEATHER_SERVICE_PACKAGE);
-    }
-
-    private void getAvailableWeatherIconPacks(List<String> entries, List<String> values) {
-        Intent i = new Intent();
-        PackageManager packageManager = getPackageManager();
-        i.setAction("org.omnirom.WeatherIconPack");
-        for (ResolveInfo r : packageManager.queryIntentActivities(i, 0)) {
-            String packageName = r.activityInfo.packageName;
-            if (packageName.equals(DEFAULT_WEATHER_ICON_PACKAGE)) {
-                values.add(0, r.activityInfo.name);
-            } else {
-                values.add(r.activityInfo.name);
-            }
-            String label = r.activityInfo.loadLabel(getPackageManager()).toString();
-            if (label == null) {
-                label = r.activityInfo.packageName;
-            }
-            if (packageName.equals(DEFAULT_WEATHER_ICON_PACKAGE)) {
-                entries.add(0, label);
-            } else {
-                entries.add(label);
-            }
-        }
-        i = new Intent(Intent.ACTION_MAIN);
-        i.addCategory(CHRONUS_ICON_PACK_INTENT);
-        for (ResolveInfo r : packageManager.queryIntentActivities(i, 0)) {
-            String packageName = r.activityInfo.packageName;
-            values.add(packageName + ".weather");
-            String label = r.activityInfo.loadLabel(getPackageManager()).toString();
-            if (label == null) {
-                label = r.activityInfo.packageName;
-            }
-            entries.add(label);
         }
     }
 

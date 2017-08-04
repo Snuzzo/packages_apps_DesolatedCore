@@ -44,6 +44,12 @@
         android:summary="@string/qs_expand_indicator_summary"
         android:defaultValue="false" />
 
+    <com.android.settings.preference.SecureSettingSwitchPreference
+         android:key="qs_show_brightness"
+         android:title="@string/qs_brightness_slider_title"
+         android:summary="@string/qs_brightness_slider_summary"
+         android:defaultValue="true"/>
+
     <ListPreference
         android:key="qs_date_time_center"
         android:title="@string/qs_date_time_center_title"
@@ -72,22 +78,32 @@
         android:defaultValue="false" />
 
     <PreferenceCategory
-        android:title="@string/qs_omnijaws_category">
+         android:title="@string/weather_header_category">
+
+        <com.android.settings.preference.SystemSettingSwitchPreference
+             android:key="header_weather_enabled"
+             android:title="@string/header_weather_enabled_title"
+             android:summary="@string/header_weather_enabled_summary"
+             android:defaultValue="false" />
+
+        <com.android.settings.preference.SystemSettingSwitchPreference
+             android:key="header_weather_image_enabled"
+             android:title="@string/header_weather_image_enabled_title"
+             android:summary="@string/header_weather_image_enabled_summary"
+             android:dependency="header_weather_enabled"
+             android:defaultValue="false" />
 
         <PreferenceScreen
-        android:title="@string/weather_config_title"
-        android:summary="@string/weather_config_summary" >
-        <intent android:action="android.intent.action.MAIN"
-                android:targetPackage="org.omnirom.omnijaws"
-                android:targetClass="org.omnirom.omnijaws.SettingsActivityService" />
+             android:title="@string/weather_config_title"
+             android:summary="@string/weather_config_summary"
+             android:dependency="header_weather_enabled" >
+             <intent android:action="android.intent.action.MAIN"
+                 android:targetPackage="org.omnirom.omnijaws"
+                 android:targetClass="org.omnirom.omnijaws.SettingsActivity" />
         </PreferenceScreen>
 
-        <ListPreference
-        android:key="weather_icon_pack"
-        android:title="@string/weather_icon_pack_title"
-        android:persistent="false" />
-
     </PreferenceCategory>
+
 
     <PreferenceCategory
         android:title="@string/custom_header_cat">
@@ -131,8 +147,8 @@
                 <intent android:action="android.intent.action.MAIN"
                     android:targetPackage="org.omnirom.omnistyle"
                     android:targetClass="org.omnirom.omnistyle.BrowseHeaderActivity" />
-    </PreferenceScreen>
+        </PreferenceScreen>
 
-     </PreferenceCategory>
+    </PreferenceCategory>
 
 </PreferenceScreen>
