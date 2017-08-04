@@ -43,17 +43,19 @@
             android:key="deso_notif_settings"
             android:title="@string/notif_settings_title"/>
 
+    <PreferenceScreen
+            android:fragment="com.deso.settings.tabs.MiscTab"
+            android:key="deso_misc_settings"
+            android:title="@string/misc_settings_title"/>
+
+
 <!--  Update this line as we complete them
 
     <PreferenceScreen
             android:fragment="com.deso.settings.tabs.LockScreenTab"
             android:key="deso_statusbar_settings"
-            android:title="@string/statusbar_settings_title"/>
-
-    <PreferenceScreen
-            android:fragment="com.deso.settings.tabs.Misc"
-            android:key="deso_statusbar_settings"
             android:title="@string/statusbar_settings_title"/> -->
+
 
     <PreferenceScreen
             android:fragment="com.deso.settings.fragments.RecentsSettings"

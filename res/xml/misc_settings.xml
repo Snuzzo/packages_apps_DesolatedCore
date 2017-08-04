@@ -32,24 +32,4 @@
         android:entries="@array/entries_scrollingcache"
         android:entryValues="@array/values_scrollingcache" />
 
-    <PreferenceScreen
-        android:key="volume_steps"
-        android:title="@string/volume_steps_title"
-        android:fragment="com.deso.settings.fragments.VolumeSteps" />
-
-    <Preference
-        android:key="wakelockblocker"
-        android:fragment="com.deso.settings.fragments.WakelockBlocker"
-        android:title="@string/wakelockblocker_category" />
-
-    <PreferenceScreen
-        android:key="screenstate_category"
-        android:title="@string/screen_state_toggles_title" 
-        android:fragment="com.deso.settings.fragments.ScreenStateToggles" />
-
-    <PreferenceScreen
-        android:key="animations_category"
-        android:title="@string/animations_title"
-        android:fragment="com.deso.settings.fragments.AnimationSettings" />
-
 </PreferenceScreen>
