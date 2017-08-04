@@ -28,12 +28,16 @@
             android:key="deso_navbar_settings"
             android:title="@string/navigationbar_settings_title"/>
 
-<!--  Update this line as we complete them
+    <PreferenceScreen
+            android:fragment="com.deso.settings.fragments.PowerMenuSettings"
+            android:key="deso_powermenu_settings"
+            android:title="@string/powermenu_settings_title"/>
 
     <PreferenceScreen
-            android:fragment="com.deso.settings.tabs.QSPanelTab"
-            android:key="deso_statusbar_settings"
-            android:title="@string/statusbar_settings_title"/>
+            android:fragment="com.deso.settings.tabs.QSTab"
+            android:key="deso_qs_settings"
+            android:title="@string/qs_settings_title"/>
+<!--  Update this line as we complete them
 
     <PreferenceScreen
             android:fragment="com.deso.settings.tabs.LockScreenTab"
@@ -56,12 +60,6 @@
             android:fragment="com.deso.settings.fragments.LedSettings"
             android:key="deso_leds"
             android:title="@string/leds"/>
-
-    <PreferenceScreen
-            android:fragment="com.deso.settings.fragments.PowerMenuSettings"
-            android:key="deso_powermenu_settings"
-            android:title="@string/powermenu_settings_title"/>
-
 <!-- sections to move --> 
 
 </PreferenceScreen>

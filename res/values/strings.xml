@@ -13,7 +13,9 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <string name="qs_settings_title">QS Tiles</string>
+    <string name="qs_tiles_title">Tiles</string>
+    <string name="qs_panel_title">Panel</string>
+    <string name="qs_settings_title">Quick Settings</string>
 
     <string name="qs_tile_title_visibility_title">QS tile titles</string>
     <string name="qs_tile_title_visibility_summary_on">QS tiles titles are now visible</string>

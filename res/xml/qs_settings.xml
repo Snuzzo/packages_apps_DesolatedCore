@@ -13,33 +13,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
-    <com.deso.settings.preferences.CustomSeekBarPreference
-        android:key="sysui_qqs_count_key"
-        android:title="@string/sysui_qqs_count_title"
-        settings:max="8"
-        settings:min="3"
-        settings:units=""
-        android:persistent="false" />
-
-    <com.android.settings.preference.SecureSettingSwitchPreference
-        android:key="qs_easy_toggle"
-        android:title="@string/qs_easy_toggle_title"
-        android:summary="@string/qs_easy_toggle_summary"
-        android:defaultValue="false" />
-
-    <com.android.settings.preference.SystemSettingSwitchPreference
-        android:key="qs_footer_warnings"
-        android:title="@string/qs_footer_warnings_title"
-        android:summary="@string/qs_footer_warnings_summary"
-        android:defaultValue="true" />
-
-    <com.android.settings.preference.SystemSettingSwitchPreference
-        android:key="qs_tile_title_visibility"
-        android:title="@string/qs_tile_title_visibility_title"
-        android:summaryOn="@string/qs_tile_title_visibility_summary_on"
-        android:summaryOff="@string/qs_tile_title_visibility_summary_off"
-        android:defaultValue="true" />
-
     <com.android.settings.preference.SystemSettingSwitchPreference
         android:key="qs_settings_icon_toggle"
         android:title="@string/qs_settings_icon_title"

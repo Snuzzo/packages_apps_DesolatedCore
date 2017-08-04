@@ -100,7 +100,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     private boolean isExpandTabs = false;
     private boolean isCustomTabs;
     private boolean isPaddingMiddle = false;
-    private boolean isTabTextAllCaps = true;
+    private boolean isTabTextAllCaps = false;
 
     private Typeface mTabTextTypeface = null;
     private int mTabTextTypefaceStyle = Typeface.BOLD;

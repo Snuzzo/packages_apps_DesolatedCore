@@ -47,7 +47,6 @@ import java.util.ArrayList;
 public class QSSettings extends DesoSettingsFragment implements
         Preference.OnPreferenceChangeListener {
 
-    private static final String KEY_SYSUI_QQS_COUNT = "sysui_qqs_count_key";
     private static final String CATEGORY_WEATHER = "weather_category";
     private static final String WEATHER_ICON_PACK = "weather_icon_pack";
     private static final String DEFAULT_WEATHER_ICON_PACKAGE = "org.omnirom.omnijaws";
@@ -63,7 +62,6 @@ public class QSSettings extends DesoSettingsFragment implements
     private static final String HEADER_TIME_DATE = "qs_date_time_center";
     private static final String STATUS_BAR_QUICK_QS_PULLDOWN_FP = "status_bar_quick_qs_pulldown_fp";
 
-    private CustomSeekBarPreference mSysuiQqsCount;
     private ListPreference mWeatherIconPack;
     private PreferenceCategory mWeatherCategory;
     private ListPreference mDaylightHeaderPack;
@@ -80,14 +78,9 @@ public class QSSettings extends DesoSettingsFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        title = getResources().getString(R.string.qs_settings_title);
-        addPreferencesFromResource(R.xml.qs_settings);
 
-        mSysuiQqsCount = (CustomSeekBarPreference) findPreference(KEY_SYSUI_QQS_COUNT);
-        int SysuiQqsCount = Settings.Secure.getInt(getContentResolver(),
-                Settings.Secure.QQS_COUNT, 5);
-        mSysuiQqsCount.setValue(SysuiQqsCount / 1);
-        mSysuiQqsCount.setOnPreferenceChangeListener(this);
+        title = getResources().getString(R.string.qs_panel_title);
+        addPreferencesFromResource(R.xml.qs_settings);
 
         String settingHeaderPackage = Settings.System.getString(getContentResolver(),
                 Settings.System.STATUS_BAR_DAYLIGHT_HEADER_PACK);
@@ -196,12 +189,7 @@ public class QSSettings extends DesoSettingsFragment implements
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mSysuiQqsCount) {
-            int SysuiQqsCount = (Integer) newValue;
-            Settings.Secure.putInt(getActivity().getContentResolver(),
-                    Settings.Secure.QQS_COUNT, SysuiQqsCount * 1);
-            return true;
-        } else if (preference == mDaylightHeaderPack) {
+         if (preference == mDaylightHeaderPack) {
             String value = (String) newValue;
             Settings.System.putString(getContentResolver(),
                     Settings.System.STATUS_BAR_DAYLIGHT_HEADER_PACK, value);
