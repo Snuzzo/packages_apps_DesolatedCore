@@ -68,4 +68,9 @@
             android:title="@string/leds"/>
 <!-- sections to move --> 
 
+    <PreferenceScreen
+        android:key="blur_category"
+        android:title="@string/blur_settings"
+        android:fragment="com.deso.settings.fragments.BlurPersonalizations" />
+
 </PreferenceScreen>

@@ -52,9 +52,4 @@
         android:title="@string/animations_title"
         android:fragment="com.deso.settings.fragments.AnimationSettings" />
 
-    <PreferenceScreen
-        android:key="blur_category"
-        android:title="@string/blur_settings"
-        android:fragment="com.deso.settings.fragments.BlurPersonalizations" />
-
 </PreferenceScreen>
