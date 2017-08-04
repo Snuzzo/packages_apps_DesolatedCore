@@ -59,17 +59,8 @@
             android:title="@string/recents_settings_title"/>
 
     <PreferenceScreen
-        android:key="blur_category"
-        android:title="@string/blur_settings"
-        android:fragment="com.deso.settings.fragments.BlurPersonalizations" />
-
-<!-- TODO: These sections will be moved later -->
-
-    <PreferenceScreen
-            android:fragment="com.deso.settings.fragments.LedSettings"
-            android:key="deso_leds"
-            android:title="@string/leds"/>
-<!-- sections to move --> 
-
+            android:key="blur_category"
+            android:title="@string/blur_settings"
+            android:fragment="com.deso.settings.fragments.BlurPersonalizations" />
 
 </PreferenceScreen>

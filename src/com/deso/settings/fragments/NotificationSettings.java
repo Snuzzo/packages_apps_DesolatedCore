@@ -23,6 +23,7 @@ import android.os.UserHandle;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceScreen;
+import android.support.v7.preference.PreferenceCategory;
 import android.provider.Settings;
 
 import com.android.internal.logging.MetricsProto.MetricsEvent;
@@ -32,12 +33,35 @@ import com.android.settings.SettingsPreferenceFragment;
 
 public class NotificationSettings extends DesoSettingsFragment {
 
+    private Preference mLeds;
+    private Preference mChargingLeds;
+    private Preference mNotificationLeds;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.notification_drawer_settings);
         title = getResources().getString(R.string.notification_drawer_settings_title);
         PreferenceScreen prefScreen = getPreferenceScreen();
+
+        mChargingLeds = (Preference) findPreference("charging_light");
+        mNotificationLeds = (Preference) findPreference("notification_light");
+        mLeds = (Preference) findPreference("deso_leds");
+
+        if (mChargingLeds == null && mNotificationLeds == null) {
+            prefScreen.removePreference(mLeds);
+        }
+        if (mChargingLeds != null
+                && !getResources().getBoolean(
+                        com.android.internal.R.bool.config_intrusiveBatteryLed)) {
+            prefScreen.removePreference(mChargingLeds);
+        }
+        if (mNotificationLeds != null
+                && !getResources().getBoolean(
+                        com.android.internal.R.bool.config_intrusiveNotificationLed)) {
+            prefScreen.removePreference(mNotificationLeds);
+        }
+
     }
 
     @Override
