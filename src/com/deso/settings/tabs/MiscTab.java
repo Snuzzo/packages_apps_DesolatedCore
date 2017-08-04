@@ -92,8 +92,8 @@ public class MiscTab extends SettingsPreferenceFragment {
             frags[0] = new MiscSettings();
             frags[1] = new VolumeSteps();
             frags[2] = new WakelockBlocker();
-            frags[2] = new ScreenStateToggles();
-            frags[2] = new AnimationSettings();
+            frags[3] = new ScreenStateToggles();
+            frags[4] = new AnimationSettings();
         }
 
         @Override
